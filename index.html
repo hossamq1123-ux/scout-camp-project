@@ -16,6 +16,13 @@
                 extend: {
                     scale: {
                         '102': '1.02',
+                    },
+                    colors: {
+                        scout: {
+                            green: '#1b4332',
+                            gold: '#b78628',
+                            'gold-hover': '#a1751f'
+                        }
                     }
                 }
             }
@@ -23,6 +30,8 @@
     </script>
     
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/html5-qrcode"></script>
+
     <style>
         body {
             font-family: 'Cairo', sans-serif;
@@ -47,7 +56,6 @@
         }
     </style>
     <script>
-        // فحص مسبق لمنع وميض الشاشة الأبيض عند التحديث
         if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
         } else {
@@ -59,7 +67,6 @@
 
     <nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 text-slate-900 dark:bg-slate-950/90 dark:text-white backdrop-blur-md border-b border-amber-500/30 shadow-xl py-4 lg:py-5 transition-all duration-300">
         <div class="w-full px-6 md:px-14 flex flex-col lg:flex-row justify-between items-center gap-5">
-            
             <div class="flex items-center gap-4 shrink-0">
                 <img src="assets/logo-scouts.png" alt="شعار جمعية الكشافة" class="w-14 h-14 md:w-16 md:h-16 object-contain bg-white rounded-xl p-1.5 border border-slate-200 dark:border-slate-800 shadow-md">
                 <div class="text-right">
@@ -70,6 +77,7 @@
             
             <div class="flex flex-wrap justify-center items-center gap-x-5 gap-y-2 text-[13.5px] md:text-[14px] lg:text-[15.5px] font-black tracking-wide text-slate-800 dark:text-slate-200">
                 <a href="#hero" class="hover:text-indigo-600 dark:hover:text-amber-400 transition-colors shrink-0">الرئيسية</a>
+                <a href="#nusuk-scanner" class="text-emerald-600 dark:text-emerald-400 font-extrabold hover:underline shrink-0">قارئ بطاقة نسك 🆕</a>
                 <a href="#about" class="hover:text-indigo-600 dark:hover:text-amber-400 transition-colors shrink-0">عن الكشافة</a>
                 <a href="#guide" class="hover:text-indigo-600 dark:hover:text-amber-400 transition-colors shrink-0">حقيبة القادة</a>
                 <a href="#strategy" class="hover:text-indigo-600 dark:hover:text-amber-400 transition-colors shrink-0">التوجه الاستراتيجي</a>
@@ -85,7 +93,6 @@
                 <button onclick="toggleTheme()" class="p-3 bg-slate-100 text-slate-800 dark:bg-slate-900 dark:text-amber-400 rounded-xl border border-slate-200 dark:border-slate-800 shadow-md cursor-pointer transition-all active:scale-95 shrink-0" title="تبديل الوضع">
                     <i id="theme-icon" data-lucide="moon" class="w-5 h-5"></i>
                 </button>
-
                 <div class="flex items-center bg-slate-100/80 dark:bg-slate-900/60 pl-4 pr-3 py-1.5 rounded-2xl border border-slate-200 dark:border-slate-800/80 gap-3 shadow-inner">
                     <div class="text-right flex flex-col justify-center">
                         <span class="block text-[9px] font-black text-slate-400 dark:text-amber-500 uppercase tracking-tight">تطوير النظام</span>
@@ -94,7 +101,6 @@
                     <img src="assets/logo-uog.png" alt="شعار جامعة جازان" class="w-10 h-10 object-contain bg-white rounded-lg p-0.5 border border-slate-200 dark:border-slate-700 shadow-sm">
                 </div>
             </div>
-
         </div>
     </nav>
 
@@ -103,40 +109,164 @@
             <span class="text-xs md:text-sm font-bold text-indigo-700 dark:text-amber-400 tracking-widest bg-indigo-500/10 dark:bg-amber-500/10 px-4 py-2 rounded-full border border-indigo-500/20 dark:border-amber-500/20 uppercase inline-block mb-6">موسم الحج عام ١٤٤٧هـ</span>
             <h2 class="text-4xl md:text-6xl font-black text-slate-900 dark:text-white leading-tight">الكشافة السعودية <br><span class="text-indigo-700 dark:text-amber-400">في خدمة ضيوف الرحمن</span></h2>
             <p class="text-sm md:text-lg text-slate-700 dark:text-slate-300 mt-6 max-w-2xl mx-auto font-medium leading-relaxed">
-                الخطة التشغيلية الرقمية المعتمدة لمعسكر مدرسة الابتدائية 36 بمكة المكرمة. نفخر بخدمة حجاج بيت الله الحرام بكل إخلاص وتفانٍ لضمان أعلى مستويات الانضباط والجودة.
+                الخطة التشغيلية الرقمية المعتمدة لمعسكر مدرسة الابتدائية 36 بمكة المكرمة. نفخر بخدمة حجاج بيت الله الحرام بكفاءة وامتياز ميداني متكامل.
             </p>
             
             <div class="mt-10 flex flex-wrap justify-center gap-4">
-                <a href="#guide" class="px-6 py-3.5 bg-indigo-700 dark:bg-amber-500 text-white dark:text-slate-950 font-black text-sm md:text-base rounded-xl shadow-xl transition-all transform hover:-translate-y-0.5 cursor-pointer">الحقيبة الإرشادية للقادة</a>
-                <a href="#leaders" class="px-6 py-3.5 bg-white dark:bg-slate-800 text-slate-800 dark:text-white font-bold text-sm md:text-base rounded-xl border border-slate-300 dark:border-slate-700 shadow-xl transition-all transform hover:-translate-y-0.5 cursor-pointer">الهيكل التنظيمي الشجري</a>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-16 max-w-3xl mx-auto">
-                <div class="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 p-5 rounded-2xl flex items-center justify-between shadow-md">
-                    <div class="text-right">
-                        <span class="block text-2xl font-black text-slate-900 dark:text-white">+٦٠</span>
-                        <span class="block text-xs text-slate-500 dark:text-slate-300 font-bold mt-0.5">سنة من العطاء والخدمة</span>
-                    </div>
-                    <div class="p-2.5 bg-slate-100 dark:bg-slate-950/50 rounded-xl text-indigo-600 dark:text-amber-400 border border-slate-200 dark:border-slate-800"><i data-lucide="award" class="w-6 h-6"></i></div>
-                </div>
-                <div class="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 p-5 rounded-2xl flex items-center justify-between shadow-md">
-                    <div class="text-right">
-                        <span class="block text-2xl font-black text-slate-900 dark:text-white">١٤٤٧هـ</span>
-                        <span class="block text-xs text-slate-500 dark:text-slate-300 font-bold mt-0.5">العام التشغيلي الحالي</span>
-                    </div>
-                    <div class="p-2.5 bg-slate-100 dark:bg-slate-950/50 rounded-xl text-indigo-600 dark:text-amber-400 border border-slate-200 dark:border-slate-800"><i data-lucide="calendar" class="w-6 h-6"></i></div>
-                </div>
-                <div class="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 p-5 rounded-2xl flex items-center justify-between shadow-md">
-                    <div class="text-right">
-                        <span class="block text-2xl font-black text-slate-900 dark:text-white">١٠٠٪</span>
-                        <span class="block text-xs text-slate-500 dark:text-slate-300 font-bold mt-0.5">جاهزية أمن وسلامة</span>
-                    </div>
-                    <div class="p-2.5 bg-slate-100 dark:bg-slate-950/50 rounded-xl text-indigo-600 dark:text-amber-400 border border-slate-200 dark:border-slate-800"><i data-lucide="shield-check" class="w-6 h-6"></i></div>
-                </div>
+                <a href="#nusuk-scanner" class="px-6 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-black text-sm md:text-base rounded-xl shadow-xl transition-all transform hover:-translate-y-0.5 cursor-pointer flex items-center gap-2">
+                    <i data-lucide="qr-code" class="w-5 h-5"></i> نظام تحقق بطاقات نسك الذكي
+                </a>
             </div>
         </div>
     </section>
 
+    <section id="nusuk-scanner" class="min-h-screen bg-slate-50 dark:bg-slate-900 py-16 border-b border-slate-200 dark:border-slate-950 transition-colors duration-300">
+        <div class="container mx-auto px-4 max-w-6xl">
+            
+            <div class="text-center mb-12">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/60 mb-3">
+                    <i data-lucide="cpu" class="w-3.5 h-3.5"></i> نظام التحقق الذكي v1.0
+                </span>
+                <h3 class="text-3xl md:text-4xl font-black text-scout-green dark:text-white">قارئ بطاقة نسك</h3>
+                <p class="text-sm font-medium text-slate-500 dark:text-slate-400 mt-2 max-w-xl mx-auto">
+                    امسح باركود بطاقة نسك الخاصة بالحاج لعرض معلومات مخيمه فوراً وتوجيهه للمكان الصحيح.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <div class="lg:col-span-5 space-y-6">
+                    
+                    <div class="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-850 p-6 rounded-2xl shadow-sm">
+                        <h4 class="text-base font-black text-scout-green dark:text-amber-400 flex items-center gap-2 mb-4">
+                            <i data-lucide="info" class="w-5 h-5 text-indigo-600 dark:text-amber-400"></i> ما هي بطاقة نسك؟
+                        </h4>
+                        <p class="text-xs font-semibold text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                            بطاقة نسك هي بطاقة موحدة تُصدر لكل حاج تحتوي على بياناته الكاملة (الطبية، السكنية، والمعلوماتية) وتُسهل دخوله للمشاعر المقدسة وتحديد مخيمه.
+                        </p>
+                        
+                        <div class="text-xs space-y-2.5 border-t border-slate-100 dark:border-slate-800/80 pt-4 font-bold text-slate-700 dark:text-slate-300">
+                            <div class="flex justify-between"><span class="text-slate-400">نوع البيانات المخزنة:</span><span class="text-indigo-950 dark:text-white">البيانات الشخصية والطبية والسكنية</span></div>
+                            <div class="flex justify-between"><span class="text-slate-400">تقنية القراءة:</span><span class="text-indigo-950 dark:text-white">باركود / QR Code</span></div>
+                            <div class="flex justify-between"><span class="text-slate-400">الجهة المُصدرة:</span><span class="text-indigo-950 dark:text-white">وزارة الحج والعمرة - تطبيق نسك</span></div>
+                            <div class="flex justify-between"><span class="text-slate-400">الاستخدام الميداني:</span><span class="text-emerald-600 dark:text-emerald-400">التحقق من الهوية وتوجيه الحاج</span></div>
+                        </div>
+                    </div>
+
+                    <div class="bg-[#b78628] text-white p-6 rounded-2xl shadow-md">
+                        <h4 class="text-base font-black flex items-center gap-2 mb-4">
+                            <i data-lucide="help-circle" class="w-5 h-5"></i> كيف يستخدم الكشاف البطاقة؟
+                        </h4>
+                        <ul class="space-y-3 text-xs font-bold">
+                            <li class="flex items-start gap-2.5">
+                                <span class="bg-white text-scout-gold w-5 h-5 rounded-full flex items-center justify-center shrink-0 text-[11px] font-black">١</span>
+                                <span>يطلب الكشاف من الحاج إبراز بطاقة نسك الذكية.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <span class="bg-white text-scout-gold w-5 h-5 rounded-full flex items-center justify-center shrink-0 text-[11px] font-black">٢</span>
+                                <span>يُوجّه كاميرا القارئ نحو الباركود المطبوع في البطاقة.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <span class="bg-white text-scout-gold w-5 h-5 rounded-full flex items-center justify-center shrink-0 text-[11px] font-black">٣</span>
+                                <span>تظهر معلومات المخيم فوراً على الشاشة لتوجيهه.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <span class="bg-white text-scout-gold w-5 h-5 rounded-full flex items-center justify-center shrink-0 text-[11px] font-black">٤</span>
+                                <span>يُرشد الكشاف الحاج نحو مخيمه المحدّد بكل يسر.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <span class="bg-white text-scout-gold w-5 h-5 rounded-full flex items-center justify-center shrink-0 text-[11px] font-black">٥</span>
+                                <span>في حال الضياع أو عدم القراءة يتم التنسيق مع غرفة العمليات.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 space-y-6">
+                    
+                    <div class="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-850 p-6 rounded-2xl shadow-xl relative overflow-hidden">
+                        
+                        <h4 class="text-lg font-black text-slate-950 dark:text-white flex items-center gap-2 mb-4">
+                            <i data-lucide="scan" class="w-5 h-5 text-emerald-600"></i> ماسح الباركود الذكي
+                        </h4>
+
+                        <div class="relative border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-xl bg-slate-50 dark:bg-slate-900 flex flex-col items-center justify-center min-h-[260px] p-4 transition-all duration-300">
+                            
+                            <div id="reader" class="w-full bg-black rounded-lg overflow-hidden hidden"></div>
+
+                            <div id="scanner-placeholder" class="text-center space-y-3 py-6">
+                                <div class="w-16 h-16 bg-emerald-500/10 rounded-full flex items-center justify-center mx-auto text-emerald-600 animate-pulse">
+                                    <i data-lucide="qr-code" class="w-8 h-8"></i>
+                                </div>
+                                <p class="text-sm font-bold text-slate-800 dark:text-slate-200">وجّه الكاميرا نحو بطاقة نسك</p>
+                                <p class="text-[11px] text-slate-400 font-medium">يدعم قراءة الـ QR Code والـ Barcode بدقة عالية</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-5 space-y-3">
+                            <button id="btn-toggle-camera" onclick="startScanner()" class="w-full py-3.5 bg-scout-green hover:bg-emerald-900 text-white font-black text-sm rounded-xl transition-all active:scale-98 shadow-md flex items-center justify-center gap-2 cursor-pointer">
+                                <i data-lucide="camera" class="w-4 h-4"></i> تشغيل الكاميرا والمسح المباشر
+                            </button>
+
+                            <div class="relative flex items-center">
+                                <span class="absolute right-4 text-slate-400 font-bold text-xs"><i data-lucide="hash" class="w-4 h-4"></i></span>
+                                <input type="text" id="manual-code-input" placeholder="أو أدخل الرمز يدوياً هنا..." class="w-full pr-11 pl-4 py-3 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white rounded-xl text-xs font-black focus:outline-none focus:border-scout-gold transition-colors">
+                            </div>
+
+                            <button onclick="handleManualSearch()" class="w-full py-3.5 bg-scout-gold hover:bg-scout-gold-hover text-white font-black text-sm rounded-xl transition-all active:scale-98 shadow-md flex items-center justify-center gap-2 cursor-pointer">
+                                <i data-lucide="search" class="w-4 h-4"></i> بحث وتدقيق الرمز
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="result-card" class="bg-white dark:bg-slate-950 border-2 border-emerald-500/40 p-6 rounded-2xl shadow-xl hidden animate-fadeIn">
+                        <div class="flex items-center gap-3 border-b border-slate-100 dark:border-slate-800/80 pb-3 mb-4">
+                            <div class="w-9 h-9 bg-emerald-500/10 rounded-xl flex items-center justify-center text-emerald-600"><i data-lucide="check-circle-2" class="w-5 h-5"></i></div>
+                            <div>
+                                <h4 class="text-sm font-black text-slate-950 dark:text-white leading-none">تم التحقق بنجاح</h4>
+                                <span id="res-timestamp" class="text-[10px] text-slate-400 font-bold block mt-1">توقيت التحقق: اليوم</span>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 text-xs font-bold text-slate-700 dark:text-slate-300">
+                            <div class="p-3 bg-slate-50 dark:bg-slate-900 rounded-xl"><span class="text-slate-400 block mb-0.5">رمز الحاج:</span><span id="res-code" class="text-indigo-950 dark:text-white text-sm font-black">---</span></div>
+                            <div class="p-3 bg-slate-50 dark:bg-slate-900 rounded-xl"><span class="text-slate-400 block mb-0.5">اسم مخيم السكن:</span><span id="res-camp" class="text-emerald-600 dark:text-emerald-400 text-sm font-black">---</span></div>
+                            <div class="p-3 bg-slate-50 dark:bg-slate-900 rounded-xl col-span-2"><span class="text-slate-400 block mb-0.5">مسار وتوجيه الكشاف الميداني:</span><span id="res-guide" class="text-slate-900 dark:text-slate-100 font-medium">---</span></div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-850 p-6 rounded-2xl shadow-sm">
+                        <h4 class="text-xs font-black text-slate-400 uppercase tracking-wider flex items-center gap-1.5 mb-3">
+                            <i data-lucide="test-tube" class="w-4 h-4"></i> رموز تجريبية للاختبار والتدقيق (بيانات افتراضية)
+                        </h4>
+                        <div class="divide-y divide-slate-100 dark:divide-slate-800/60 text-xs font-bold">
+                            <div onclick="fillTestCode('TALHA-001')" class="py-2.5 flex justify-between items-center hover:bg-slate-50 dark:hover:bg-slate-900 px-2 rounded-lg cursor-pointer transition-colors group">
+                                <span class="font-mono bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 px-2 py-1 rounded text-[11px] group-hover:border border-indigo-500/30">TALHA-001</span>
+                                <span class="text-slate-500">معسكر مدرسة طلحة بن عبيدالله ...</span>
+                            </div>
+                            <div onclick="fillTestCode('TALHA-002')" class="py-2.5 flex justify-between items-center hover:bg-slate-50 dark:hover:bg-slate-900 px-2 rounded-lg cursor-pointer transition-colors group">
+                                <span class="font-mono bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 px-2 py-1 rounded text-[11px] group-hover:border border-indigo-500/30">TALHA-002</span>
+                                <span class="text-slate-500">معسكر مدرسة طلحة بن عبيدالله الاحتياطي ...</span>
+                            </div>
+                            <div onclick="fillTestCode('JIZAN-001')" class="py-2.5 flex justify-between items-center hover:bg-slate-50 dark:hover:bg-slate-900 px-2 rounded-lg cursor-pointer transition-colors group">
+                                <span class="font-mono bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 px-2 py-1 rounded text-[11px] group-hover:border border-emerald-500/30">JIZAN-001</span>
+                                <span class="text-slate-500">معسكر جوالة جازان الخيري الميداني ...</span>
+                            </div>
+                            <div onclick="fillTestCode('MECCA-001')" class="py-2.5 flex justify-between items-center hover:bg-slate-50 dark:hover:bg-slate-900 px-2 rounded-lg cursor-pointer transition-colors group">
+                                <span class="font-mono bg-amber-50 dark:bg-amber-950/40 text-amber-600 px-2 py-1 rounded text-[11px] group-hover:border border-amber-500/30">MECCA-001</span>
+                                <span class="text-slate-500">معسكر الحجاج المركزي بمكة المكرمة ...</span>
+                            </div>
+                            <div onclick="fillTestCode('HAJI-001')" class="py-2.5 flex justify-between items-center hover:bg-slate-50 dark:hover:bg-slate-900 px-2 rounded-lg cursor-pointer transition-colors group">
+                                <span class="font-mono bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-2 py-1 rounded text-[11px] group-hover:border border-slate-500/30">HAJI-001</span>
+                                <span class="text-slate-500">معسكر الحجاج الأفريقيين المخصص ...</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
     <section id="about" class="min-h-[60vh] flex items-center bg-white dark:bg-slate-950 py-20 border-b border-slate-200 dark:border-slate-900 transition-colors duration-300">
         <div class="container mx-auto px-6 max-w-5xl">
             <div class="flex items-center gap-3 mb-2">
@@ -251,7 +381,7 @@
             <h4 class="text-base font-black text-slate-950 dark:text-white mb-4">الأهداف الاستراتيجية المعتمدة بالخطة:</h4>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-xs font-bold text-slate-700 dark:text-slate-300">
                 <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 transition-colors">1. تنظيم أعمال فرق الجوالة داخل المعسكر.</div>
-                <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 transition-colors">2. توزيع المهام على القادة وفرق الجوالة بوضوح وفعالية.</div>
+                <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 transition-colors">2. distribution المهام على القادة وفرق الجوالة بوضوح وفعالية.</div>
                 <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 transition-colors">3. تنمية مهارات الجوالة ميدانياً وتعزيز جاهزيتهم.</div>
                 <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 transition-colors">4. دعم أعمال الإرشاد والخدمة الميدانية وفق أعلى معايير الجودة.</div>
                 <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 transition-colors">5. تعزيز روح التطوع والعمل الجماعي بين فرق الجوالة.</div>
@@ -273,7 +403,6 @@
             
             <div class="flex flex-col items-center w-full overflow-x-auto pb-6">
                 <div class="min-w-[840px] flex flex-col items-center">
-                    
                     <div class="relative pb-12 flex justify-center w-full">
                         <div class="bg-indigo-900 border-2 border-amber-500 p-4 rounded-xl text-center shadow-xl w-64 z-10 backdrop-blur-md">
                             <div class="flex justify-center mb-1 text-amber-400"><i data-lucide="crown" class="w-5 h-5"></i></div>
@@ -285,7 +414,6 @@
 
                     <div class="relative pb-12 flex justify-center gap-24 w-full">
                         <div class="absolute top-0 left-1/4 right-1/4 h-0.5 bg-slate-300 dark:bg-slate-700"></div>
-                        
                         <div class="relative pt-6 flex justify-center tree-branch">
                             <div class="bg-white dark:bg-slate-950 border border-slate-200 dark:border-indigo-500/60 p-4 rounded-xl text-center shadow-md w-60 z-10 text-slate-800 dark:text-slate-300 transition-colors">
                                 <div class="flex justify-center mb-1 text-indigo-600 dark:text-indigo-400"><i data-lucide="shield" class="w-4 h-4"></i></div>
@@ -293,7 +421,6 @@
                                 <h4 class="text-xs font-bold mt-1">أحمد عبد الرحمن بوري</h4>
                             </div>
                         </div>
-
                         <div class="relative pt-6 flex justify-center tree-branch">
                             <div class="bg-white dark:bg-slate-950 border border-slate-200 dark:border-emerald-500/60 p-4 rounded-xl text-center shadow-md w-60 z-10 text-slate-800 dark:text-slate-300 transition-colors">
                                 <div class="flex justify-center mb-1 text-emerald-600 dark:text-emerald-400"><i data-lucide="pen-tool" class="w-4 h-4"></i></div>
@@ -301,15 +428,12 @@
                                 <h4 class="text-xs font-bold mt-1">عبد الرحمن علي أحمد الزهراني</h4>
                             </div>
                         </div>
-
                         <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0.5 h-12 bg-slate-300 dark:bg-slate-700"></div>
                     </div>
 
                     <div class="relative w-full pt-6">
                         <div class="absolute top-0 left-[10%] right-[10%] h-0.5 bg-slate-300 dark:bg-slate-700"></div>
-                        
                         <div class="grid grid-cols-5 gap-4 w-full">
-                            
                             <div class="relative pt-6 flex flex-col items-center text-center tree-branch">
                                 <div class="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 p-3 rounded-xl shadow-md w-full max-w-[155px] z-10 text-slate-800 dark:text-slate-300 transition-colors">
                                     <div class="flex justify-center mb-1 text-amber-500"><i data-lucide="utensils" class="w-4 h-4"></i></div>
@@ -317,7 +441,6 @@
                                     <h4 class="text-[11px] font-black mt-0.5">سليمان صالح السلوم</h4>
                                 </div>
                             </div>
-
                             <div class="relative pt-6 flex flex-col items-center text-center tree-branch">
                                 <div class="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 p-3 rounded-xl shadow-md w-full max-w-[155px] z-10 text-slate-800 dark:text-slate-300 transition-colors">
                                     <div class="flex justify-center mb-1 text-teal-500"><i data-lucide="box" class="w-4 h-4"></i></div>
@@ -325,7 +448,6 @@
                                     <h4 class="text-[11px] font-black mt-0.5">عبد الهادي الشهري</h4>
                                 </div>
                             </div>
-
                             <div class="relative pt-6 flex flex-col items-center text-center tree-branch">
                                 <div class="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 p-3 rounded-xl shadow-md w-full max-w-[155px] z-10 text-slate-800 dark:text-slate-300 transition-colors">
                                     <div class="flex justify-center mb-1 text-blue-400"><i data-lucide="cpu" class="w-4 h-4"></i></div>
@@ -333,7 +455,6 @@
                                     <h4 class="text-[11px] font-black mt-0.5">عبدالله علي حزام</h4>
                                 </div>
                             </div>
-
                             <div class="relative pt-6 flex flex-col items-center text-center tree-branch">
                                 <div class="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 p-3 rounded-xl shadow-md w-full max-w-[155px] z-10 text-slate-800 dark:text-slate-300 transition-colors">
                                     <div class="flex justify-center mb-1 text-orange-500"><i data-lucide="users" class="w-4 h-4"></i></div>
@@ -341,7 +462,6 @@
                                     <h4 class="text-[11px] font-black mt-0.5">مشاري مشعل الحميد</h4>
                                 </div>
                             </div>
-
                             <div class="relative pt-6 flex flex-col items-center text-center tree-branch">
                                 <div class="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 p-3 rounded-xl shadow-md w-full max-w-[155px] z-10 text-slate-800 dark:text-slate-300 transition-colors">
                                     <div class="flex justify-center mb-1 text-pink-400"><i data-lucide="activity" class="w-4 h-4"></i></div>
@@ -349,10 +469,8 @@
                                     <h4 class="text-[11px] font-black mt-0.5"> راجس بن إبراهيم الدوسري</h4>
                                 </div>
                             </div>
-
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -442,7 +560,7 @@
                     <h4 class="text-md font-black text-indigo-950 dark:text-amber-400 mb-4 flex items-center gap-2"><i data-lucide="user-check" class="w-5 h-5"></i> أولاً: تكريم أفضل قائد جوالة</h4>
                     <ul class="space-y-3 font-semibold text-xs text-slate-700 dark:text-slate-300">
                         <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-400"></i> تكريم القائد المتميز في القيادة والإدارة الكشفية.</li>
-                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-400"></i> تكريم القائد المتميز في العطاء والمبادرة الميدانية.</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-400"></i> تكريم القائد المتميز في العطاء والممبادرة الميدانية.</li>
                         <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-400"></i> تكريم القائد المتميز في تقديم الدعم والمساندة لفرق الجوالة.</li>
                         <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-400"></i> تكريم القائد المتميز في القدوة الحسنة والسلوك الكشفي المشرّف.</li>
                     </ul>
@@ -664,6 +782,138 @@
     </footer>
 
     <script>
+        // قواعد بيانات تجريبية لمحاكاة استعلام السيرفر (MySQL) فور قراءة الكود
+        const mockDatabase = {
+            "TALHA-001": {
+                camp: "معسكر مدرسة طلحة بن عبيدالله الابتدائية",
+                guide: "يتوجه الحاج إلى البوابة الغربية، الدور الأول، جناح رقم ٣."
+            },
+            "TALHA-002": {
+                camp: "معسكر مدرسة طلحة بن عبيدالله (المبنى الإضافي)",
+                guide: "يتوجه الحاج مباشرة إلى الفناء الداخلي، الخيمة رقم ج-١٢."
+            },
+            "JIZAN-001": {
+                camp: "معسكر جوالة جامعة جازان الخيري",
+                guide: "يتوجه الحاج إلى مربع جازان الرئيسي، خلف مقر السكرتارية التنفيذية."
+            },
+            "MECCA-001": {
+                camp: "معسكر الحجاج المكي المركزي",
+                guide: "يتوجه الحاج إلى الصالة الرئيسية الكبرى المخصصة للاستقبال الرقمي."
+            },
+            "HAJI-001": {
+                camp: "معسكر حجاج دول أفريقيا غير العربية",
+                guide: "التوجيه المباشر نحو مكتب لجان العلاقات العامة والترجمة في مدخل المدرسة."
+            }
+        };
+
+        let html5QrcodeScanner = null;
+
+        // دالة تشغيل الماسح الضوئي حياً عبر كاميرا الهاتف/الحاسوب
+        function startScanner() {
+            const readerElement = document.getElementById('reader');
+            const placeholderElement = document.getElementById('scanner-placeholder');
+            const btn = document.getElementById('btn-toggle-camera');
+
+            // إذا كان شغالاً، نقوم بإيقافه
+            if (html5QrcodeScanner) {
+                html5QrcodeScanner.stop().then(() => {
+                    html5QrcodeScanner = null;
+                    readerElement.classList.add('hidden');
+                    placeholderElement.classList.remove('hidden');
+                    btn.innerHTML = '<i data-lucide="camera" class="w-4 h-4"></i> تشغيل الكاميرا والمسح المباشر';
+                    lucide.createIcons();
+                }).catch(err => console.error("فشل إيقاف الكاميرا:", err));
+                return;
+            }
+
+            // إعداد وتشغيل الماسح
+            readerElement.classList.remove('hidden');
+            placeholderElement.classList.add('hidden');
+            btn.innerHTML = '<i data-lucide="camera-off" class="w-4 h-4"></i> إيقاف تشغيل الكاميرا';
+            lucide.createIcons();
+
+            html5QrcodeScanner = new Html5Qrcode("reader");
+            
+            // تهيئة تشغيل الكاميرا الخلفية (للهواتف الذكية لسهولة مسح البطاقات)
+            html5QrcodeScanner.start(
+                { facingMode: "environment" }, 
+                {
+                    fps: 15,
+                    qrbox: { width: 250, height: 250 }
+                },
+                (decodedText) => {
+                    // عند نجاح القراءة والمسح
+                    document.getElementById('manual-code-input').value = decodedText;
+                    processCodeVerification(decodedText);
+                    
+                    // إيقاف الكاميرا تلقائياً بعد القراءة للحفاظ على البطارية
+                    startScanner(); 
+                },
+                (errorMessage) => {
+                    // لتفادي إغراق الكونسول بالأخطاء أثناء البحث المستمر
+                }
+            ).catch(err => {
+                alert("لم يتم العثور على كاميرا أو لم يتم إعطاء صلاحية الوصول.");
+                startScanner();
+            });
+        }
+
+        // دالة معالجة البحث اليدوي
+        function handleManualSearch() {
+            const codeInput = document.getElementById('manual-code-input').value.trim();
+            if (!codeInput) {
+                alert("يرجى إدخال كود أو رمز للبحث عنه.");
+                return;
+            }
+            processCodeVerification(codeInput);
+        }
+
+        // دالة التحقق من الكود وعرض النتائج
+        function processCodeVerification(code) {
+            const resultCard = document.getElementById('result-card');
+            const resCode = document.getElementById('res-code');
+            const resCamp = document.getElementById('res-camp');
+            const resGuide = document.getElementById('res-guide');
+            const resTimestamp = document.getElementById('res-timestamp');
+
+            const upperCode = code.toUpperCase();
+
+            // إظهار بطاقة النتائج
+            resultCard.classList.remove('hidden');
+            
+            // إدراج الوقت الحالي للتحقق
+            const now = new Date();
+            resTimestamp.innerText = `توقيت التحقق: اليوم، الساعة ${now.toLocaleTimeString('ar-SA')}`;
+
+            if (mockDatabase[upperCode]) {
+                resCode.innerText = upperCode;
+                resCamp.innerText = mockDatabase[upperCode].camp;
+                resGuide.innerText = mockDatabase[upperCode].guide;
+                
+                // تعديل البوردر ليدل على النجاح
+                resultCard.className = "bg-white dark:bg-slate-950 border-2 border-emerald-500 p-6 rounded-2xl shadow-xl animate-fadeIn text-right";
+            } else {
+                // في حال عدم وجود الكود بقاعدة البيانات
+                resCode.innerText = upperCode;
+                resCamp.innerText = "غير مسجل / غير معروف ⚠️";
+                resGuide.innerText = "لم يتم العثور على هذا الرمز في قاعدة بيانات المعسكر المعتمدة. يرجى توجيه الحاج إلى مكتب إدارة الأزمات والضياع بساحة المدرسة فوراً.";
+                
+                // تعديل البوردر ليدل على خطأ
+                resultCard.className = "bg-white dark:bg-slate-950 border-2 border-red-500 p-6 rounded-2xl shadow-xl animate-fadeIn text-right";
+            }
+            lucide.createIcons();
+            
+            // تمرير الشاشة تلقائياً للنتيجة لتسهيل القراءة للكشاف
+            resultCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // دالة تعبئة الكود عند النقر على الرموز التجريبية المرفقة أسفل الصفحة
+        function fillTestCode(code) {
+            document.getElementById('manual-code-input').value = code;
+            processCodeVerification(code);
+        }
+
+        // الأكواد الأساسية للثيمات وتحديث الأيقونات (تأكيد الحفاظ عليها)
         function updateIcon() {
             const themeIcon = document.getElementById('theme-icon');
             if (document.documentElement.classList.contains('dark')) {
@@ -678,7 +928,6 @@
 
         function toggleTheme() {
             const htmlElement = document.documentElement;
-            
             if (htmlElement.classList.contains('dark')) {
                 htmlElement.classList.remove('dark');
                 localStorage.setItem('theme', 'light');
@@ -695,7 +944,7 @@
                 const parent = this.parentElement;
                 if(parent && !parent.querySelector('.fallback-msg')) {
                     const fallbackDiv = document.createElement('div');
-                    fallbackDiv.className = 'fallback-msg w-full h-full min-h-[120px] bg-slate-100 dark:bg-slate-900 border border-dashed border-slate-300 dark:border-slate-800 rounded-xl flex flex-col items-center justify-center p-4 text-center text-xs text-amber-500 font-bold';
+                    fallbackDiv.className = 'fallback-msg w-full h-full min-h-[120px] bg-slate-100 dark:bg-slate-900 border border-dashed border-slate-300 dark:border-slate-880 rounded-xl flex flex-col items-center justify-center p-4 text-center text-xs text-amber-500 font-bold';
                     fallbackDiv.innerHTML = '<i data-lucide="image-off" class="w-6 h-6 text-slate-500 mb-2"></i><span>الملف "' + this.getAttribute('src').split('/').pop() + '" غير موجود</span><span class="text-[10px] text-slate-400 font-medium mt-1">يرجى نقله داخل مجلد assets</span>';
                     parent.appendChild(fallbackDiv);
                     lucide.createIcons();
