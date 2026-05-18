@@ -7,12 +7,25 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
+    <!-- جلب الإصدار المستقر Tailwind v3 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- تكوين التايلوند لتفعيل التبديل اليدوي عبر الكلاس -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    scale: {
+                        '102': '1.02',
+                    }
+                }
+            }
+        }
+    </script>
+    
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        /* إجبار Tailwind v4 على دعم كلاس dark المخصص للتبديل اليدوي */
-        @variant dark (&:where(.dark, .dark *));
-
         body {
             font-family: 'Cairo', sans-serif;
         }
@@ -36,7 +49,7 @@
         }
     </style>
     <script>
-        // فحص مسبق لحفظ الوضع المختار لمنع وميض الصفحة
+        // فحص مسبق لمنع وميض الشاشة الأبيض عند التحديث
         if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
         } else {
@@ -136,7 +149,7 @@
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm font-medium leading-relaxed">
                 <div class="bg-slate-50 dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-300 shadow-xs transition-colors">
-                    <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2"><i data-lucide="scroll" class="w-5 h-5 text-indigo-600 dark:text-amber-400"></i> النشأة والاعتماد الدولي الرسمي</h4>
+                    <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2"><i data-lucide="scroll" class="w-5 h-5 text-indigo-600 dark:text-amber-400"></i>  النشأة والاعتماد الدولي الرسمي</h4>
                     <p class="mb-4">بدأت الحركة الكشفية في المملكة العربية السعودية بجهود مباركة داخل المدارس عام ١٣٥٣هـ، وتأسست الجمعية رسمياً بمرسوم ملكي في عام 1381هـ (1961م).</p>
                     <p>وحصلت على الاعتراف الدولي بانضمامها للمنظمة العالمية للحركة الكشفية (WOSM) عام 1383هـ (1963م) في مؤتمر لشبونة شهادةً بتميز الكشافة بالمملكة.</p>
                 </div>
@@ -497,7 +510,7 @@
                         <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
                             <td class="px-4 py-4 text-right font-black text-indigo-950 dark:text-white bg-slate-50/50 dark:bg-slate-950/20">الأحد (4 ذو الحجة)</td>
                             <td class="px-4 py-4">4:06 ص</td>
-                            <td class="px-4 py-4">12:12 m</td>
+                            <td class="px-4 py-4">12:12 م</td>
                             <td class="px-4 py-4">3:26 م</td>
                             <td class="px-4 py-4">6:53 م</td>
                             <td class="px-4 py-4">8:23 م</td>
@@ -564,7 +577,7 @@
             </div>
             <div class="space-y-6 text-sm font-medium">
                 <div class="card-block bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-850 p-6 rounded-2xl shadow-md text-slate-800 dark:text-slate-300 transition-colors">
-                    <h4 class="text-base font-bold text-slate-950 dark:text-white mb-2 flex items-center gap-2"><i data-lucide="door-open" class="w-5 h-5 text-indigo-600 dark:text-amber-400"></i> الاستقبال والتسكين الميداني للوفود</h4>
+                    <h4 class="text-base font-bold text-slate-950 dark:text-white mb-2 flex items-center gap-2"><i data-lucide="door-open" class="w-5 h-5 text-indigo-600 dark:text-amber-400"></i>  الاستقبال والتسكين الميداني للوفود</h4>
                     <p class="leading-relaxed font-semibold transition-colors">الترحيب بكافة عشائر الجوالة والفرق الكشفية فور الوصول، إتمام التحقق وتوثيق سجلات المشاركين وبياناتهم الإلكترونية كاملة. ويتم التسكين مع مراعاة الطاقة الاستيعابية لكل غرفة لضمان الجاهزية والراحة الفعالة للمرافق التابعة للمعسكر.</p>
                 </div>
                 <div class="card-block bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-850 p-6 rounded-2xl shadow-md text-slate-800 dark:text-slate-300 transition-colors">
@@ -653,7 +666,7 @@
     </footer>
 
     <script>
-        // إعداد الأيقونات المبدئي بحسب وضع الصفحة الحالي
+        // دالة تحديث حالة الأيقونة عند تحميل الصفحة والتبديل
         function updateIcon() {
             const themeIcon = document.getElementById('theme-icon');
             if (document.documentElement.classList.contains('dark')) {
@@ -664,7 +677,7 @@
             lucide.createIcons();
         }
 
-        // تشغيل فحص الأيقونات عند تحميل الملف
+        // تشغيل التهيئة المبدئية للأيقونة فور التحميل
         updateIcon();
 
         function toggleTheme() {
