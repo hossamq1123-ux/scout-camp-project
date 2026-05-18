@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" class="scroll-smooth dark">
+<html lang="ar" dir="rtl" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,6 +32,14 @@
             scrollbar-width: none;
         }
     </style>
+    <script>
+        // سكربت فوري لمنع وميض الشاشة الأبيض عند التحميل إذا كان المستخدم يفضل الوضع الداكن
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 antialiased pt-64 lg:pt-44 transition-colors duration-300">
 
@@ -229,7 +237,7 @@
             <h4 class="text-base font-black text-slate-950 dark:text-white mb-4">الأهداف الاستراتيجية المعتمدة بالخطة:</h4>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-xs font-bold text-slate-700 dark:text-slate-300">
                 <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 transition-colors">1. تنظيم أعمال فرق الجوالة داخل المعسكر.</div>
-                <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 transition-colors">2. توزيع المهام على القادة وفرق الجوالة بوضوح وفعالية.</div>
+                <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 transition-colors">2. distribution المهام على القادة وفرق الجوالة بوضوح وفعالية.</div>
                 <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 transition-colors">3. تنمية مهارات الجوالة ميدانياً وتعزيز جاهزيتهم.</div>
                 <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 transition-colors">4. دعم أعمال الإرشاد والخدمة الميدانية وفق أعلى معايير الجودة.</div>
                 <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 transition-colors">5. تعزيز روح التطوع والعمل الجماعي بين فرق الجوالة.</div>
@@ -625,12 +633,12 @@
                     <h5 class="text-sm font-black text-white mb-2 flex items-center justify-center md:justify-start gap-1.5"><i data-lucide="terminal" class="w-4 h-4 text-amber-400"></i> النظام الإلكتروني الموحد</h5>
                     <p class="text-slate-400 leading-relaxed">تم التطوير والبرمجة بالكامل بواسطة عشائر جوالة جامعة جازان لخدمة المعسكرات والكشافة.</p>
                 </div>
-                <div class="flex flex-col justify-center items-center">
+                <div class="grid flex flex-col justify-center items-center">
                     <h5 class="text-sm font-black text-amber-400 mb-2 flex items-center gap-1.5"><i data-lucide="phone-call" class="w-4 h-4"></i> قنوات التواصل الرسمية</h5>
                     <p>البريد الكشفي: <a href="mailto:scouts@scouts.org.sa" class="text-white hover:underline">scouts@scouts.org.sa</a></p>
                     <p class="mt-1">الهاتف الرسمي للجمعية: +966 11 441 1253</p>
                 </div>
-                <div class="flex flex-col justify-center items-center md:items-end">
+                <div class="grid flex flex-col justify-center items-center md:items-end">
                     <h5 class="text-sm font-black text-white mb-2 flex items-center gap-1.5"><i data-lucide="external-link" class="w-4 h-4"></i> المرجعية الرسمية</h5>
                     <a href="https://www.scouts.org.sa" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-slate-950 font-black rounded-lg transition-transform cursor-pointer">زيارة موقع جمعية الكشافة</a>
                 </div>
@@ -642,21 +650,31 @@
     </footer>
 
     <script>
-        lucide.createIcons();
-
-        function toggleTheme() {
-            // الوصول المباشر لكلاس dark المدمج بـ Tailwind 4
-            const htmlElement = document.documentElement;
+        // إعداد الأيقونات عند تشغيل الصفحة أول مرة
+        function updateIcon() {
             const themeIcon = document.getElementById('theme-icon');
-            
-            if (htmlElement.classList.contains('dark')) {
-                htmlElement.classList.remove('dark');
+            if (document.documentElement.classList.contains('dark')) {
                 themeIcon.setAttribute('data-lucide', 'sun');
             } else {
-                htmlElement.classList.add('dark');
                 themeIcon.setAttribute('data-lucide', 'moon');
             }
             lucide.createIcons();
+        }
+
+        // تشغيل التهيئة المبدئية للأيقونة
+        updateIcon();
+
+        function toggleTheme() {
+            const htmlElement = document.documentElement;
+            
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+            updateIcon();
         }
 
         document.querySelectorAll('.onerror-fallback').forEach(img => {
