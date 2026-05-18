@@ -40,43 +40,44 @@
     <main class="container mx-auto px-4 py-8 max-w-7xl">
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
             
-            <aside class="lg:col-span-1 bg-white p-5 rounded-2xl shadow-sm border border-slate-200/60 h-fit sticky top-28">
-                <div class="flex items-center gap-2 mb-5 pb-3 border-b-2 border-slate-100">
-                    <span class="text-xl">🗂️</span>
-                    <h2 class="text-lg font-extrabold text-indigo-950">لوحة التحكم والتصفح</h2>
+            <aside class="lg:col-span-1 bg-white p-6 rounded-2xl shadow-xs border border-slate-200/60 h-fit sticky top-28">
+                <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100">
+                    <div class="w-8 h-8 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-600 font-bold">🧭</div>
+                    <h2 class="text-md font-black text-indigo-950 tracking-wide">أقسام ومحاور المعسكر</h2>
                 </div>
-                <nav class="flex flex-col space-y-1.5" id="main-nav">
-                    <button onclick="switchTab('main')" id="btn-main" class="tab-btn w-full text-right px-4 py-3 rounded-xl text-md font-bold bg-indigo-600 text-white shadow-xs transition-all cursor-pointer flex items-center gap-3">
-                        <span>🏠</span> الرئيسية (عن المعسكر)
+                
+                <nav class="flex flex-col space-y-1" id="main-nav">
+                    <button onclick="switchTab('main')" id="btn-main" class="tab-btn w-full text-right px-4 py-3 rounded-xl text-sm font-bold bg-indigo-50 text-indigo-700 border-r-4 border-indigo-600 transition-all cursor-pointer flex items-center gap-3">
+                        <span class="text-base transition-transform">🏠</span> الرئيسية (عن المعسكر)
                     </button>
-                    <button onclick="switchTab('history')" id="btn-history" class="tab-btn w-full text-right px-4 py-3 rounded-xl text-md font-bold text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-all cursor-pointer flex items-center gap-3">
-                        <span>🇸🇦</span> عن الكشافة السعودية في الحج
+                    <button onclick="switchTab('history')" id="btn-history" class="tab-btn w-full text-right px-4 py-3 rounded-xl text-sm font-bold text-slate-500 hover:text-indigo-600 hover:bg-slate-50/80 border-r-4 border-transparent hover:border-indigo-300 transition-all cursor-pointer flex items-center gap-3">
+                        <span class="text-base">🇸🇦</span> تاريخ الكشافة السعودية
                     </button>
-                    <button onclick="switchTab('strategy')" id="btn-strategy" class="tab-btn w-full text-right px-4 py-3 rounded-xl text-md font-bold text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-all cursor-pointer flex items-center gap-3">
-                        <span>🎯</span> التوجه الاستراتيجي
+                    <button onclick="switchTab('strategy')" id="btn-strategy" class="tab-btn w-full text-right px-4 py-3 rounded-xl text-sm font-bold text-slate-500 hover:text-indigo-600 hover:bg-slate-50/80 border-r-4 border-transparent hover:border-indigo-300 transition-all cursor-pointer flex items-center gap-3">
+                        <span class="text-base">🎯</span> التوجه الاستراتيجي
                     </button>
-                    <button onclick="switchTab('structure')" id="btn-structure" class="tab-btn w-full text-right px-4 py-3 rounded-xl text-md font-bold text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-all cursor-pointer flex items-center gap-3">
-                        <span>👥</span> الهيكل التنظيمي ومجلس القيادة
+                    <button onclick="switchTab('structure')" id="btn-structure" class="tab-btn w-full text-right px-4 py-3 rounded-xl text-sm font-bold text-slate-500 hover:text-indigo-600 hover:bg-slate-50/80 border-r-4 border-transparent hover:border-indigo-300 transition-all cursor-pointer flex items-center gap-3">
+                        <span class="text-base">👥</span> مجلس القيادة والهيكل التنظيمي
                     </button>
-                    <button onclick="switchTab('program')" id="btn-program" class="tab-btn w-full text-right px-4 py-3 rounded-xl text-md font-bold text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-all cursor-pointer flex items-center gap-3">
-                        <span>📅</span> البرنامج العملي اليومي
+                    <button onclick="switchTab('program')" id="btn-program" class="tab-btn w-full text-right px-4 py-3 rounded-xl text-sm font-bold text-slate-500 hover:text-indigo-600 hover:bg-slate-50/80 border-r-4 border-transparent hover:border-indigo-300 transition-all cursor-pointer flex items-center gap-3">
+                        <span class="text-base">📅</span> البرنامج العملي اليومي
                     </button>
-                    <button onclick="switchTab('activities')" id="btn-activities" class="tab-btn w-full text-right px-4 py-3 rounded-xl text-md font-bold text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-all cursor-pointer flex items-center gap-3">
-                        <span>🏆</span> برامج وتقييم التميز
+                    <button onclick="switchTab('activities')" id="btn-activities" class="tab-btn w-full text-right px-4 py-3 rounded-xl text-sm font-bold text-slate-500 hover:text-indigo-600 hover:bg-slate-50/80 border-r-4 border-transparent hover:border-indigo-300 transition-all cursor-pointer flex items-center gap-3">
+                        <span class="text-base">🏆</span> برامج وتقييم التميز
                     </button>
-                    <button onclick="switchTab('prayers')" id="btn-prayers" class="tab-btn w-full text-right px-4 py-3 rounded-xl text-md font-bold text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-all cursor-pointer flex items-center gap-3">
-                        <span>🕌</span> أوقات الصلاة بالمعسكر
+                    <button onclick="switchTab('prayers')" id="btn-prayers" class="tab-btn w-full text-right px-4 py-3 rounded-xl text-sm font-bold text-slate-500 hover:text-indigo-600 hover:bg-slate-50/80 border-r-4 border-transparent hover:border-indigo-300 transition-all cursor-pointer flex items-center gap-3">
+                        <span class="text-base">🕌</span> أوقات الصلاة بالمعسكر
                     </button>
-                    <button onclick="switchTab('logistics')" id="btn-logistics" class="tab-btn w-full text-right px-4 py-3 rounded-xl text-md font-bold text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-all cursor-pointer flex items-center gap-3">
-                        <span>📦</span> الخدمات اللوجستية والتموين
+                    <button onclick="switchTab('logistics')" id="btn-logistics" class="tab-btn w-full text-right px-4 py-3 rounded-xl text-sm font-bold text-slate-500 hover:text-indigo-600 hover:bg-slate-50/80 border-r-4 border-transparent hover:border-indigo-300 transition-all cursor-pointer flex items-center gap-3">
+                        <span class="text-base">📦</span> الخدمات اللوجستية والتموين
                     </button>
-                    <button onclick="switchTab('safety')" id="btn-safety" class="tab-btn w-full text-right px-4 py-3 rounded-xl text-md font-bold text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-all cursor-pointer flex items-center gap-3">
-                        <span>🚨</span> بروتوكولات السلامة والختام
+                    <button onclick="switchTab('safety')" id="btn-safety" class="tab-btn w-full text-right px-4 py-3 rounded-xl text-sm font-bold text-slate-500 hover:text-indigo-600 hover:bg-slate-50/80 border-r-4 border-transparent hover:border-indigo-300 transition-all cursor-pointer flex items-center gap-3">
+                        <span class="text-base">🚨</span> بروتوكولات السلامة والختام
                     </button>
                 </nav>
             </aside>
 
-            <section class="lg:col-span-3 bg-white p-6 md:p-10 rounded-2xl shadow-sm border border-slate-200/60 min-h-[600px]">
+            <section class="lg:col-span-3 bg-white p-6 md:p-10 rounded-2xl shadow-xs border border-slate-200/60 min-h-[600px]">
                 
                 <div id="tab-main" class="tab-content active">
                     <h3 class="text-3xl font-black text-indigo-950 mb-6 pb-2 border-b border-slate-100 flex items-center gap-2">📑 وثيقة الخطة التشغيلية</h3>
@@ -84,15 +85,15 @@
                         <img src="assets/camp-identity.jpg" alt="الهوية الجديدة لمعسكر الخدمة العامة لحج 1447هـ" class="w-full h-64 md:h-80 object-cover onerror-fallback">
                     </div>
                     <p class="text-slate-600 text-lg leading-relaxed mb-8 font-medium">
-                        انطلاقاً من رسالة جمعية الكشافة العربية السعودية في خدمة ضيوف الرحمن، وتعزيزاً لدور الكشافة في العمل التطوعي، ومشاركة فرق الجوالة في خدمة ضيوف الرحمن بكفاءة عالية، تم إعداد هذه الخطة التشغيلية لمعسكر الخدمة العامة لحج 1447هـ بمقر مدرسة الابتدائية 36 بهدف تنظيم وتوثيق أعمال فرق الجوالة خلال فترة المعسكر[cite: 29, 30].
+                        انطلاقاً من رسالة جمعية الكشافة العربية السعودية في خدمة ضيوف الرحمن، وتعزيزاً لدور الكشافة في العمل التطوعي، ومشاركة فرق الجوالة في خدمة ضيوف الرحمن بكفاءة عالية، تم إعداد هذه الخطة التشغيلية لمعسكر الخدمة العامة لحج 1447هـ بمقر مدرسة الابتدائية 36 بهدف تنظيم وتوثيق أعمال فرق الجوالة خلال فترة المعسكر.
                     </p>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 bg-slate-50 p-6 rounded-2xl border border-slate-200/60 text-md">
-                        <div class="flex items-center gap-2"><span>📍</span> <p><strong class="text-indigo-950 text-lg">مقر المعسكر:</strong> مدرسة الابتدائية 36 [cite: 30]</p></div>
-                        <div class="flex items-center gap-2"><span>👥</span> <p><strong class="text-indigo-950 text-lg">الفئة المستهدفة:</strong> فرق الجوالة المشاركة في خدمة الحجاج [cite: 30]</p></div>
-                        <div class="flex items-center gap-2"><span>📅</span> <p><strong class="text-indigo-950 text-lg">العام التنفيذي:</strong> حج ١٤٤٧هـ [cite: 30]</p></div>
-                        <div class="flex items-center gap-2"><span>✍️</span> <p><strong class="text-indigo-950 text-lg">إعداد قائد السكرتارية:</strong> عبد الرحمن علي أحمد الزهراني [cite: 101]</p></div>
+                        <div class="flex items-center gap-2"><span>📍</span> <p><strong class="text-indigo-950 text-lg">مقر المعسكر:</strong> مدرسة الابتدائية 36</p></div>
+                        <div class="flex items-center gap-2"><span>👥</span> <p><strong class="text-indigo-950 text-lg">الفئة المستهدفة:</strong> فرق الجوالة المشاركة في خدمة الحجاج</p></div>
+                        <div class="flex items-center gap-2"><span>📅</span> <p><strong class="text-indigo-950 text-lg">العام التنفيذي:</strong> حج ١٤٤٧هـ</p></div>
+                        <div class="flex items-center gap-2"><span>✍️</span> <p><strong class="text-indigo-950 text-lg">إعداد قائد السكرتارية:</strong> عبد الرحمن علي أحمد الزهراني</p></div>
                         <div class="md:col-span-2 mt-2 pt-3 border-t border-slate-200 flex items-center gap-2 text-indigo-950 font-bold text-lg">
-                            <span>✅</span> <span>يعتمد قائد المعسكر: رمزي أحمد محمد مهدي [cite: 95]</span>
+                            <span>✅</span> <span>يعتمد قائد المعسكر: رمزي أحمد محمد مهدي</span>
                         </div>
                     </div>
                 </div>
@@ -136,50 +137,70 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                         <div class="p-6 bg-indigo-50/60 rounded-2xl border border-indigo-100 shadow-3xs">
                             <h4 class="text-xl font-bold text-indigo-950 mb-3 flex items-center gap-2">👁️ الرؤية</h4>
-                            <p class="text-md text-slate-600 leading-relaxed font-medium">أن يكون معسكر مدرسة الابتدائية 36 بيئة للتميز في التنظيم والانضباط والخدمة الكشفية من خلال بيئة آمنة ومحفزة تسهم في خدمة ضيوف الرحمن بكفاءة عالية[cite: 43].</p>
+                            <p class="text-md text-slate-600 leading-relaxed font-medium">أن يكون معسكر مدرسة الابتدائية 36 بيئة للتميز في التنظيم والانضباط والخدمة الكشفية من خلال بيئة آمنة ومحفزة تسهم في خدمة ضيوف الرحمن بكفاءة عالية.</p>
                         </div>
                         <div class="p-6 bg-amber-50/60 rounded-2xl border border-amber-200/60 shadow-3xs">
                             <h4 class="text-xl font-bold text-amber-950 mb-3 flex items-center gap-2">✉️ الرسالة</h4>
-                            <p class="text-md text-slate-600 leading-relaxed font-medium">تقديم خدمات كشفية منظمة من خلال فرق الجوالة في بيئة آمنة وميسرة تسهم في خدمة ضيوف الرحمن وتعزز روح المسؤولية والانتماء، وتنمي المهارات وتحقق رسالة الكشافة في خدمة المجتمع[cite: 44].</p>
+                            <p class="text-md text-slate-600 leading-relaxed font-medium">تقديم خدمات كشفية منظمة من خلال فرق الجوالة في بيئة آمنة وميسرة تسهم في خدمة ضيوف الرحمن وتعزز روح المسؤولية والانتماء، وتنمي المهارات وتحقق رسالة الكشافة في خدمة المجتمع.</p>
                         </div>
                     </div>
                     
                     <h4 class="text-xl font-black text-indigo-950 mb-4">🎯 الأهداف الاستراتيجية المعتمدة:</h4>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-md text-slate-700 font-medium">
-                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 shadow-3xs hover:border-indigo-200 transition-all">1. تنظيم أعمال فرق الجوالة داخل المعسكر[cite: 35].</div>
-                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 shadow-3xs hover:border-indigo-200 transition-all">2. توزيع المهام على القادة وفرق الجوالة بوضوح وفعالية[cite: 35].</div>
-                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 shadow-3xs hover:border-indigo-200 transition-all">3. تنمية مهارات الجوالة ميدانياً وتعزيز جاهزيتهم[cite: 35].</div>
-                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 shadow-3xs hover:border-indigo-200 transition-all">4. دعم أعمال الإرشاد والخدمة الميدانية وفق أعلى معايير الجودة[cite: 35].</div>
-                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 shadow-3xs hover:border-indigo-200 transition-all">5. تعزيز روح التطوع والعمل الجماعي بين فرق الجوالة[cite: 35].</div>
-                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 shadow-3xs hover:border-indigo-200 transition-all">6. تنفيذ برامج نوعية تثري تجربة الجوالة وتحقق الأثر الإيجابي[cite: 35].</div>
-                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 shadow-3xs hover:border-indigo-200 transition-all">7. رفع مستوى السلامة والانضباط داخل المعسكر[cite: 35].</div>
-                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 shadow-3xs hover:border-indigo-200 transition-all">8. تطوير بيئة المعسكر بشكل مستمر وتحسين الخدمات المقدمة[cite: 35].</div>
-                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 shadow-3xs hover:border-indigo-200 transition-all md:col-span-2">9. تقييم الأداء وقياس الأثر لضمان التحسين المستدام[cite: 35].</div>
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 shadow-3xs hover:border-indigo-200 transition-all">1. تنظيم أعمال فرق الجوالة داخل المعسكر.</div>
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 shadow-3xs hover:border-indigo-200 transition-all">2. توزيع المهام على القادة وفرق الجوالة بوضوح وفعالية.</div>
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 shadow-3xs hover:border-indigo-200 transition-all">3. تنمية مهارات الجوالة ميدانياً وتعزيز جاهزيتهم.</div>
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 shadow-3xs hover:border-indigo-200 transition-all">4. دعم أعمال الإرشاد والخدمة الميدانية وفق أعلى معايير الجودة.</div>
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 shadow-3xs hover:border-indigo-200 transition-all">5. تعزيز روح التطوع والعمل الجماعي بين فرق الجوالة.</div>
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 shadow-3xs hover:border-indigo-200 transition-all">6. تنفيذ برامج نوعية تثري تجربة الجوالة وتحقق الأثر الإيجابي.</div>
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 shadow-3xs hover:border-indigo-200 transition-all">7. رفع مستوى السلامة والانضباط داخل المعسكر.</div>
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 shadow-3xs hover:border-indigo-200 transition-all">8. تطوير بيئة المعسكر بشكل مستمر وتحسين الخدمات المقدمة.</div>
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 shadow-3xs hover:border-indigo-200 transition-all md:col-span-2">9. تقييم الأداء وقياس الأثر لضمان التحسين المستدام.</div>
                     </div>
                 </div>
 
                 <div id="tab-structure" class="tab-content">
-                    <h3 class="text-3xl font-black text-indigo-950 mb-6 pb-2 border-b border-slate-100">👥 مجلس قيادة المعسكر والمهام</h3>
+                    <h3 class="text-3xl font-black text-indigo-950 mb-6 pb-2 border-b border-slate-100">👥 مجلس قيادة المعسكر والهيكل التنظيمي الكامل</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="p-5 border border-slate-200 rounded-xl shadow-xs hover:border-indigo-200 transition-all">
                             <span class="text-xs font-bold text-indigo-700 bg-indigo-50 px-2.5 py-1 rounded-md">قائد المعسكر</span>
-                            <h4 class="text-lg font-black text-slate-900 mt-2">رمزي أحمد محمد مهدي [cite: 95]</h4>
-                            <p class="text-sm text-slate-500 mt-1.5 leading-relaxed">القيادة العامة والإشراف على المعسكر، اعتماد الخطط والبرامج التنفيذية، والتنسيق مع الجهات الرسمية[cite: 132, 133].</p>
+                            <h4 class="text-lg font-black text-slate-900 mt-2">رمزي أحمد محمد مهدي</h4>
+                            <p class="text-sm text-slate-500 mt-1.5 leading-relaxed">القيادة العامة والإشراف على المعسكر، اعتماد الخطط والبرامج التنفيذية، والتنسيق مع الجهات الرسمية.</p>
                         </div>
                         <div class="p-5 border border-slate-200 rounded-xl shadow-xs hover:border-indigo-200 transition-all">
                             <span class="text-xs font-bold text-purple-700 bg-purple-50 px-2.5 py-1 rounded-md">مساعد قائد المعسكر</span>
-                            <h4 class="text-lg font-black text-slate-900 mt-2">أحمد عبد الرحمن بوري [cite: 96]</h4>
-                            <p class="text-sm text-slate-500 mt-1.5 leading-relaxed">مساعدة قائد المعسكر في إدارة شؤون المعسكر، متابعة تنفيذ الخطط والبرامج، والإشراف على الفرق الميدانية[cite: 132, 133].</p>
+                            <h4 class="text-lg font-black text-slate-900 mt-2">أحمد عبد الرحمن بوري</h4>
+                            <p class="text-sm text-slate-500 mt-1.5 leading-relaxed">مساعدة قائد المعسكر في إدارة شؤون المعسكر، متابعة تنفيذ الخطط والبرامج، والإشراف على الفرق الميدانية.</p>
                         </div>
                         <div class="p-5 border border-slate-200 rounded-xl shadow-xs hover:border-indigo-200 transition-all">
                             <span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md">قائد السكرتارية</span>
-                            <h4 class="text-lg font-black text-slate-900 mt-2">عبد الرحمن علي أحمد الزهراني [cite: 101]</h4>
-                            <p class="text-sm text-slate-500 mt-1.5 leading-relaxed">إدارة جميع المراسلات والوثائق، حفظ السجلات والبيانات، تنظيم الأرشيف وإعداد التقارير[cite: 136, 137].</p>
+                            <h4 class="text-lg font-black text-slate-900 mt-2">عبد الرحمن علي أحمد الزهراني</h4>
+                            <p class="text-sm text-slate-500 mt-1.5 leading-relaxed">إدارة جميع المراسلات والوثائق، حفظ السجلات والبيانات، تنظيم الأرشيف وإعداد التقارير السنوية.</p>
                         </div>
                         <div class="p-5 border border-slate-200 rounded-xl shadow-xs hover:border-indigo-200 transition-all">
                             <span class="text-xs font-bold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-md">قائد التغذية والعهدة والخدمات</span>
-                            <h4 class="text-lg font-black text-slate-900 mt-2">سليمان صالح السلوم [cite: 97]</h4>
-                            <p class="text-sm text-slate-500 mt-1.5 leading-relaxed">توفير الوجبات الغذائية بجودة عالية، الإشراف على مستودعات العهدة وصرفها، ومتابعة الصيانة[cite: 130, 131].</p>
+                            <h4 class="text-lg font-black text-slate-900 mt-2">sليمان صالح السلوم</h4>
+                            <p class="text-sm text-slate-500 mt-1.5 leading-relaxed">توفير الوجبات الغذائية بجودة عالية، الإشراف على مستودعات العهدة وصرفها، ومتابعة أعمال الصيانة اللوجستية.</p>
+                        </div>
+                        <div class="p-5 border border-slate-200 rounded-xl shadow-xs hover:border-indigo-200 transition-all">
+                            <span class="text-xs font-bold text-teal-700 bg-teal-50 px-2.5 py-1 rounded-md">قائد الساحة والدعم والمساندة</span>
+                            <h4 class="text-lg font-black text-slate-900 mt-2">يحيى علي محمد حكمي</h4>
+                            <p class="text-sm text-slate-500 mt-1.5 leading-relaxed">تنظيم ساحات المعسكر الخارجية، استقبال الوفود والفرق الكشفية وتوجيه حركة المركبات والدعم اللوجستي.</p>
+                        </div>
+                        <div class="p-5 border border-slate-200 rounded-xl shadow-xs hover:border-indigo-200 transition-all">
+                            <span class="text-xs font-bold text-red-700 bg-red-50 px-2.5 py-1 rounded-md">قائد العيادة الطبية والسلامة</span>
+                            <h4 class="text-lg font-black text-slate-900 mt-2">محمد عمر إبراهيم عقيل</h4>
+                            <p class="text-sm text-slate-500 mt-1.5 leading-relaxed">الإشراف المباشر على الصحة العامة للجوالة والقادة، التنسيق الطبي للطوارئ، ومتابعة الإسعافات الأولية داخل المقر.</p>
+                        </div>
+                        <div class="p-5 border border-slate-200 rounded-xl shadow-xs hover:border-indigo-200 transition-all">
+                            <span class="text-xs font-bold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-md">قائد البرامج والأنشطة والمسابقات</span>
+                            <h4 class="text-lg font-black text-slate-900 mt-2">موسى علي إبراهيم محرق</h4>
+                            <p class="text-sm text-slate-500 mt-1.5 leading-relaxed">إعداد وتنفيذ المسابقات الثقافية والرياضية التنافسية، وتنظيم الأنشطة والفعاليات اللامنهجية المصاحبة لمعسكر الحج.</p>
+                        </div>
+                        <div class="p-5 border border-slate-200 rounded-xl shadow-xs hover:border-indigo-200 transition-all">
+                            <span class="text-xs font-bold text-stone-700 bg-stone-100 px-2.5 py-1 rounded-md">القائد الكشفي</span>
+                            <h4 class="text-lg font-black text-slate-900 mt-2">إبراهيم محمد علي عسيري</h4>
+                            <p class="text-sm text-slate-500 mt-1.5 leading-relaxed">توجيه وضبط السلوك والتقاليد الكشفية الرسمية، ومتابعة انضباط المجموعات والفرق الميدانية طوال أيام الخدمة.</p>
                         </div>
                     </div>
                 </div>
@@ -199,21 +220,21 @@
                             <tbody class="divide-y divide-slate-100 text-sm font-medium">
                                 <tr class="hover:bg-slate-50/80">
                                     <td class="px-5 py-4 font-bold text-indigo-950">1</td>
-                                    <td class="px-5 py-4 font-bold text-slate-900">استقبال فرق الجوالة والتسجيل والتسكين [cite: 116]</td>
-                                    <td class="px-5 py-4">عند وصول فرق الجوالة [cite: 116]</td>
-                                    <td class="px-5 py-4 text-teal-700">قائد الساحة والدعم والمساندة [cite: 116]</td>
+                                    <td class="px-5 py-4 font-bold text-slate-900">استقبال فرق الجوالة والتسجيل والتسكين</td>
+                                    <td class="px-5 py-4">عند وصول فرق الجوالة</td>
+                                    <td class="px-5 py-4 text-teal-700">قائد الساحة والدعم والمساندة</td>
                                 </tr>
                                 <tr class="hover:bg-slate-50/80">
                                     <td class="px-5 py-4 font-bold text-indigo-950">2</td>
-                                    <td class="px-5 py-4 font-bold text-slate-900">الاجتماع التعريفي بقادة فرق الجوالة [cite: 116]</td>
-                                    <td class="px-5 py-4">بعد التسكين مباشرة [cite: 116]</td>
-                                    <td class="px-5 py-4 text-indigo-700">قائد المعسكر [cite: 116]</td>
+                                    <td class="px-5 py-4 font-bold text-slate-900">الاجتماع التعريفي بقادة فرق الجوالة</td>
+                                    <td class="px-5 py-4">بعد التسكين مباشرة</td>
+                                    <td class="px-5 py-4 text-indigo-700">قائد المعسكر</td>
                                 </tr>
                                 <tr class="hover:bg-slate-50/80">
                                     <td class="px-5 py-4 font-bold text-indigo-950">3</td>
-                                    <td class="px-5 py-4 font-bold text-slate-900">أعمال الإرشاد والمساندة وخدمة الحجاج [cite: 116]</td>
-                                    <td class="px-5 py-4">طوال اليوم [cite: 116]</td>
-                                    <td class="px-5 py-4 text-slate-700">فرق الجوالة (بإشراف القادة) [cite: 116]</td>
+                                    <td class="px-5 py-4 font-bold text-slate-900">أعمال الإرشاد والمساندة وخدمة الحجاج</td>
+                                    <td class="px-5 py-4">طوال اليوم</td>
+                                    <td class="px-5 py-4 text-slate-700">فرق الجوالة (بإشراف القادة)</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -224,33 +245,33 @@
                     <h3 class="text-3xl font-black text-indigo-950 mb-4 pb-2 border-b border-slate-100 flex items-center gap-2">
                         <span>🏆</span> معايير ومحاور تقييم التميز الكشفي
                     </h3>
-                    <p class="text-lg text-slate-600 mb-8 leading-relaxed font-medium">بناءً على التقرير الختامي الرسمي، يتم رصد وتكريم المتميزين بالمعسكر في الحفل الختامي بناءً على المحاور التالية[cite: 348]:</p>
+                    <p class="text-lg text-slate-600 mb-8 leading-relaxed font-medium">بناءً على التقرير الختامي الرسمي، يتم رصد وتكريم المتميزين بالمعسكر في الحفل الختامي بناءً على المحاور التالية:</p>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         
                         <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs hover:shadow-md hover:scale-[1.01] transition-all duration-300 border-t-4 border-indigo-600">
                             <div class="flex items-center gap-3 mb-4">
                                 <div class="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center font-bold text-lg">🥇</div>
-                                <h4 class="text-lg font-black text-indigo-950">اولاً: تكريم أفضل قائد جوالة متميز [cite: 358]</h4>
+                                <h4 class="text-lg font-black text-indigo-950">أولاً: تكريم أفضل قائد جوالة متميز</h4>
                             </div>
                             <ul class="space-y-3.5 text-md font-medium text-slate-600 pr-2">
-                                <li class="flex items-center gap-2.5"><span class="text-amber-500">★</span> تكريم القائد المتميز في القيادة والإدارة[cite: 359].</li>
-                                <li class="flex items-center gap-2.5"><span class="text-amber-500">★</span> تكريم القائد المتميز في العطاء والمبادرة[cite: 359].</li>
-                                <li class="flex items-center gap-2.5"><span class="text-amber-500">★</span> تكريم القائد المتميز في دعم فرق الجوالة[cite: 359].</li>
-                                <li class="flex items-center gap-2.5"><span class="text-amber-500">★</span> تكريم القائد المتميز في القدوة والسلوك[cite: 360].</li>
+                                <li class="flex items-center gap-2.5"><span class="text-amber-500">★</span> تكريم القائد المتميز في القيادة والإدارة.</li>
+                                <li class="flex items-center gap-2.5"><span class="text-amber-500">★</span> تكريم القائد المتميز في العطاء والمبادرة.</li>
+                                <li class="flex items-center gap-2.5"><span class="text-amber-500">★</span> تكريم القائد المتميز في دعم فرق الجوالة.</li>
+                                <li class="flex items-center gap-2.5"><span class="text-amber-500">★</span> تكريم القائد المتميز في القدوة والسلوك.</li>
                             </ul>
                         </div>
 
                         <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs hover:shadow-md hover:scale-[1.01] transition-all duration-300 border-t-4 border-amber-500">
                             <div class="flex items-center gap-3 mb-4">
                                 <div class="w-10 h-10 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center font-bold text-lg">⛺</div>
-                                <h4 class="text-lg font-black text-indigo-950">ثانياً: تكريم فرق الجوالة المتميزة [cite: 361]</h4>
+                                <h4 class="text-lg font-black text-indigo-950">ثانياً: تكريم فرق الجوالة المتميزة</h4>
                             </div>
                             <ul class="space-y-3.5 text-md font-medium text-slate-600 pr-2">
-                                <li class="flex items-center gap-2.5"><span class="text-indigo-600">⚜️</span> تكريم الفرق المتميزة في البرامج والأنشطة[cite: 362].</li>
-                                <li class="flex items-center gap-2.5"><span class="text-indigo-600">⚜️</span> تكريم الفرق المتميزة في الانضباط والتعاون[cite: 362].</li>
-                                <li class="flex items-center gap-2.5"><span class="text-indigo-600">⚜️</span> تكريم الفرق المتميزة في الخدمة المجتمعية[cite: 362].</li>
-                                <li class="flex items-center gap-2.5"><span class="text-indigo-600">⚜️</span> تكريم الفرق المتميزة في الإبداع والابتكار[cite: 363].</li>
+                                <li class="flex items-center gap-2.5"><span class="text-indigo-600">⚜️</span> تكريم الفرق المتميزة في البرامج والأنشطة.</li>
+                                <li class="flex items-center gap-2.5"><span class="text-indigo-600">⚜️</span> تكريم الفرق المتميزة في الانضباط والتعاون.</li>
+                                <li class="flex items-center gap-2.5"><span class="text-indigo-600">⚜️</span> تكريم الفرق المتميزة في الخدمة المجتمعية.</li>
+                                <li class="flex items-center gap-2.5"><span class="text-indigo-600">⚜️</span> تكريم الفرق المتميزة في الإبداع والابتكار.</li>
                             </ul>
                         </div>
 
@@ -259,7 +280,7 @@
 
                 <div id="tab-prayers" class="tab-content">
                     <h3 class="text-3xl font-black text-indigo-950 mb-2">🕌 مواقيت الصلاة بالمعسكر</h3>
-                    <p class="text-sm font-bold text-slate-500 mb-6">تقويم أم القرى لمكة المكرمة لعام ١٤٤٧هـ [cite: 159, 160]</p>
+                    <p class="text-sm font-bold text-slate-500 mb-6">تقويم أم القرى لمكة المكرمة لعام ١٤٤٧هـ</p>
                     <div class="overflow-x-auto rounded-2xl border border-slate-200">
                         <table class="w-full text-md text-center text-slate-600">
                             <thead class="text-sm text-indigo-950 bg-indigo-50 border-b border-slate-200">
@@ -274,20 +295,20 @@
                             </thead>
                             <tbody class="divide-y divide-slate-100 text-sm font-semibold">
                                 <tr class="hover:bg-slate-50">
-                                    <td class="px-4 py-3.5 text-right font-bold text-slate-900 bg-slate-50/50">الخميس (1 ذو الحجة) [cite: 160]</td>
-                                    <td class="px-4 py-3.5">4:05 [cite: 160]</td>
-                                    <td class="px-4 py-3.5">12:11 [cite: 160]</td>
-                                    <td class="px-4 py-3.5">15:26 [cite: 160]</td>
-                                    <td class="px-4 py-3.5">18:52 [cite: 160]</td>
-                                    <td class="px-4 py-3.5">20:22 [cite: 160]</td>
+                                    <td class="px-4 py-3.5 text-right font-bold text-slate-900 bg-slate-50/50">الخميس (1 ذو الحجة)</td>
+                                    <td class="px-4 py-3.5">4:05</td>
+                                    <td class="px-4 py-3.5">12:11</td>
+                                    <td class="px-4 py-3.5">15:26</td>
+                                    <td class="px-4 py-3.5">18:52</td>
+                                    <td class="px-4 py-3.5">20:22</td>
                                 </tr>
                                 <tr class="hover:bg-slate-50">
-                                    <td class="px-4 py-3.5 text-right font-bold text-slate-900 bg-slate-50/50">الجمعة (2 ذو الحجة) [cite: 160]</td>
-                                    <td class="px-4 py-3.5">4:05 [cite: 160]</td>
-                                    <td class="px-4 py-3.5">12:11 [cite: 160]</td>
-                                    <td class="px-4 py-3.5">15:26 [cite: 160]</td>
-                                    <td class="px-4 py-3.5">18:52 [cite: 160]</td>
-                                    <td class="px-4 py-3.5">20:22 [cite: 160]</td>
+                                    <td class="px-4 py-3.5 text-right font-bold text-slate-900 bg-slate-50/50">الجمعة (2 ذو الحجة)</td>
+                                    <td class="px-4 py-3.5">4:05</td>
+                                    <td class="px-4 py-3.5">12:11</td>
+                                    <td class="px-4 py-3.5">15:26</td>
+                                    <td class="px-4 py-3.5">18:52</td>
+                                    <td class="px-4 py-3.5">20:22</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -299,15 +320,15 @@
                     <div class="space-y-6">
                         <div class="p-6 border border-slate-200 rounded-2xl bg-slate-50/50">
                             <h4 class="text-xl font-bold text-indigo-950 mb-3 flex items-center gap-2">🏢 أولاً: آلية الاستقبال والتسكين الميداني</h4>
-                            <p class="text-md text-slate-600 leading-relaxed font-medium">استقبل فرق الجوالة والترحيب بهم، التأكد من اكتمال بيانات الفريق والتسجيل، وتسليم بطاقات التعريف والمعلومات[cite: 288]. التسكين يتم مع مراعاة الطاقة الاستيعابية لكل سكن لضمان الجاهزية والراحة الفعالة[cite: 291].</p>
+                            <p class="text-md text-slate-600 leading-relaxed font-medium">استقبال فرق الجوالة والترحيب بهم، التأكد من اكتمال بيانات الفريق والتسجيل، وتسليم بطاقات التعريف والمعلومات. التسكين يتم مع مراعاة الطاقة الاستيعابية لكل سكن لضمان الجاهزية والراحة الفعالة.</p>
                         </div>
                         
                         <div class="p-6 border border-slate-200 rounded-2xl bg-slate-50/50">
                             <h4 class="text-xl font-bold text-indigo-950 mb-4 flex items-center gap-2">🍽️ ثانياً: مواعيد الوجبات التموينية</h4>
                             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-md font-bold mb-4">
-                                <div class="p-4 bg-white border border-slate-200 rounded-xl text-center shadow-3xs text-slate-800"><span class="font-black block text-indigo-950 text-md mb-1">🍳 الإفطار</span> 08:30 ص - 10:30 ص [cite: 275]</div>
-                                <div class="p-4 bg-white border border-slate-200 rounded-xl text-center shadow-3xs text-slate-800"><span class="font-black block text-indigo-950 text-md mb-1">🍲 الغداء</span> 12:30 م - 14:30 م [cite: 275]</div>
-                                <div class="p-4 bg-white border border-slate-200 rounded-xl text-center shadow-3xs text-slate-800"><span class="font-black block text-indigo-950 text-md mb-1">🥩 العشاء</span> 21:00 م - 23:00 م [cite: 275]</div>
+                                <div class="p-4 bg-white border border-slate-200 rounded-xl text-center shadow-3xs text-slate-800"><span class="font-black block text-indigo-950 text-md mb-1">🍳 الإفطار</span> 08:30 ص - 10:30 ص</div>
+                                <div class="p-4 bg-white border border-slate-200 rounded-xl text-center shadow-3xs text-slate-800"><span class="font-black block text-indigo-950 text-md mb-1">🍲 الغداء</span> 12:30 م - 14:30 م</div>
+                                <div class="p-4 bg-white border border-slate-200 rounded-xl text-center shadow-3xs text-slate-800"><span class="font-black block text-indigo-950 text-md mb-1">🥩 العشاء</span> 21:00 م - 23:00 م</div>
                             </div>
                         </div>
                     </div>
@@ -317,18 +338,18 @@
                     <h3 class="text-3xl font-black text-indigo-950 mb-6 pb-2 border-b border-slate-100 flex items-center gap-2">🚨 بروتوكولات السلامة العامة والختام</h3>
                     
                     <div class="flex border-b border-slate-200 mb-6 gap-2">
-                        <button onclick="switchSubTab('evacuation')" id="sub-btn-evacuation" class="sub-tab-btn px-5 py-2.5 font-bold text-md border-b-2 border-indigo-600 text-indigo-600 cursor-pointer">🚨 خطة الإخلاء العاجل</button>
-                        <button onclick="switchSubTab('ceremony')" id="sub-btn-ceremony" class="sub-tab-btn px-5 py-2.5 font-bold text-md border-b-2 border-transparent text-slate-500 hover:text-slate-800 cursor-pointer">🎉 الحفل الختامي والتكريم</button>
+                        <button onclick="switchSubTab('evacuation')" id="sub-btn-evacuation" class="sub-tab-btn px-5 py-2.5 font-bold text-sm border-b-2 border-indigo-600 text-indigo-600 cursor-pointer">🚨 خطة الإخلاء العاجل</button>
+                        <button onclick="switchSubTab('ceremony')" id="sub-btn-ceremony" class="sub-tab-btn px-5 py-2.5 font-bold text-sm border-b-2 border-transparent text-slate-500 hover:text-slate-800 cursor-pointer">🎉 الحفل الختامي والتكريم</button>
                     </div>
 
                     <div id="sub-tab-evacuation" class="sub-tab-content active">
                         <div class="p-6 bg-red-50/60 border border-red-100 rounded-2xl shadow-3xs">
                             <h4 class="text-xl font-bold text-red-950 mb-2 flex items-center gap-1.5">📢 أهداف وإجراءات الطوارئ</h4>
-                            <p class="text-sm text-red-900 font-bold mb-3">تستهدف الخطة حماية الأرواح والممتلكات، وتقليل المخاطر والإصابات، ورفع الجاهزية الكشفية[cite: 255, 256].</p>
-                            <p class="text-md text-slate-700 mb-5 leading-relaxed">عند إطلاق إنذار الطوارئ الفعلي (بسبب حريق، سيول، أو تسربات غازية لا قدر الله)، يتوجه الجميع بهدوء عبر مسارات المخارج الآمنة مباشرة نحو النقاط التالية[cite: 238, 240, 241, 259]:</p>
+                            <p class="text-sm text-red-900 font-bold mb-3">تستهدف الخطة حماية الأرواح والممتلكات، وتقليل المخاطر والإصابات، ورفع الجاهزية الكشفية.</p>
+                            <p class="text-md text-slate-700 mb-5 leading-relaxed">عند إطلاق إنذار الطوارئ الفعلي (بسبب حريق، سيول، أو تسربات غازية لا قدر الله)، يتوجه الجميع بهدوء عبر مسارات المخارج الآمنة مباشرة نحو النقاط التالية:</p>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm font-bold text-slate-800 bg-white p-4 rounded-xl border border-red-100/50">
-                                <div class="flex items-center gap-2">📍 <div><strong class="text-red-900">نقطة التجمع الرئيسية:</strong> الساحة الخارجية للمعسكر[cite: 263].</div></div>
-                                <div class="flex items-center gap-2">📍 <div><strong class="text-red-900">نقطة التجمع الاحتياطية:</strong> المنطقة المخصصة خلف المعسكر[cite: 264].</div></div>
+                                <div class="flex items-center gap-2">📍 <div><strong class="text-red-900">نقطة التجمع الرئيسية:</strong> الساحة الخارجية للمعسكر.</div></div>
+                                <div class="flex items-center gap-2">📍 <div><strong class="text-red-900">نقطة التجمع الاحتياطية:</strong> المنطقة المخصصة خلف المعسكر.</div></div>
                             </div>
                         </div>
                     </div>
@@ -336,12 +357,12 @@
                     <div id="sub-tab-ceremony" class="sub-tab-content">
                         <div class="p-6 border border-slate-200 rounded-2xl bg-slate-50/50 shadow-3xs">
                             <h4 class="text-xl font-bold text-indigo-950 mb-3 flex items-center gap-2">🎉 الاحتفاء بجهود فرق الجوالة</h4>
-                            <p class="text-md text-slate-600 mb-6 font-medium leading-relaxed">تتويجاً لجهود فرق الجوالة خلال فترة المعسكر، يقام الحفل الختامي لتكريم المتميزين والاحتفاء بالإنجازات الكبيرة التي تحققت بروح كشفية عالية[cite: 348].</p>
+                            <p class="text-md text-slate-600 mb-6 font-medium leading-relaxed">تتويجاً لجهود فرق الجوالة خلال فترة المعسكر، يقام الحفل الختامي لتكريم المتميزين والاحتفاء بالإنجازات الكبيرة التي تحققت برروح كشفية عالية.</p>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm font-bold text-slate-800">
-                                <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-3xs">🎭 <strong class="text-indigo-950">مكان الانعقاد:</strong> المسرح الرئيسي بمقر المعسكر[cite: 352].</div>
-                                <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-3xs">🕒 <strong class="text-indigo-950">التوقيت والموعد:</strong> في اليوم الأخير من المعسكر[cite: 353].</div>
+                                <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-3xs">🎭 <strong class="text-indigo-950">مكان الانعقاد:</strong> المسرح الرئيسي بمقر المعسكر.</div>
+                                <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-3xs">🕒 <strong class="text-indigo-950">التوقيت والموعد:</strong> في اليوم الأخير من المعسكر.</div>
                             </div>
-                            <p class="mt-5 text-xs text-slate-500 font-medium">💡 <strong class="text-slate-800 font-bold">توجيه رسمي للفرق:</strong> يفضل حضور جميع فرق الجوالة والالتزام التام بالزي الكشفي المعتمد أثناء الحفل[cite: 366, 367].</p>
+                            <p class="mt-5 text-xs text-slate-500 font-medium">💡 <strong class="text-slate-800 font-bold">توجيه رسمي للفرق:</strong> يفضل حضور جميع فرق الجوالة والالتزام التام بالزي الكشفي المعتمد أثناء الحفل.</p>
                         </div>
                     </div>
                 </div>
@@ -365,7 +386,7 @@
                     <div class="text-md space-y-2 font-bold text-white text-center">
                         <div class="flex items-center justify-center gap-2">
                             <span>📧</span>
-                            <span>البريد الإلكتروني: <a href="mailto:scouts@scouts.org.sa" class="text-amber-400 hover:underline">scouts@scouts.org.sa [cite: 19]</a></span>
+                            <span>البريد الإلكتروني: <a href="mailto:scouts@scouts.org.sa" class="text-amber-400 hover:underline">scouts@scouts.org.sa</a></span>
                         </div>
                         <div class="flex items-center justify-center gap-2">
                             <span>📱</span>
@@ -377,9 +398,9 @@
                 <div class="flex flex-col justify-center items-center md:items-end">
                     <h5 class="text-lg font-black text-white mb-3">🔗 المرجعية الكشفية الرسمية</h5>
                     <a href="https://www.scouts.org.sa" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 bg-amber-500 hover:bg-amber-600 text-indigo-950 font-black text-md rounded-xl shadow-md transition-all transform hover:-translate-y-0.5 cursor-pointer">
-                        🌐 زيارة موقع جمعية الكشافة السعودية [cite: 19]
+                        🌐 زيارة موقع جمعية الكشافة السعودية
                     </a>
-                    <p class="text-[11px] text-indigo-400 mt-2 text-center md:text-left font-medium">www.scouts.org.sa [cite: 19]</p>
+                    <p class="text-[11px] text-indigo-400 mt-2 text-center md:text-left font-medium">www.scouts.org.sa</p>
                 </div>
 
             </div>
@@ -397,14 +418,14 @@
             
             const buttons = document.querySelectorAll('.tab-btn');
             buttons.forEach(btn => {
-                btn.classList.remove('bg-indigo-600', 'text-white', 'shadow-xs');
-                btn.classList.add('text-slate-600', 'hover:bg-slate-50', 'hover:text-slate-900');
+                btn.classList.remove('bg-indigo-50', 'text-indigo-700', 'border-r-4', 'border-indigo-600');
+                btn.classList.add('text-slate-500', 'hover:text-indigo-600', 'hover:bg-slate-50/80', 'border-r-4', 'border-transparent', 'hover:border-indigo-300');
             });
 
             document.getElementById('tab-' + tabId).classList.add('active');
             const activeBtn = document.getElementById('btn-' + tabId);
-            activeBtn.classList.remove('text-slate-600', 'hover:bg-slate-50', 'hover:text-slate-900');
-            activeBtn.classList.add('bg-indigo-600', 'text-white', 'shadow-xs');
+            activeBtn.classList.remove('text-slate-500', 'hover:text-indigo-600', 'hover:bg-slate-50/80', 'border-r-4', 'border-transparent', 'hover:border-indigo-300');
+            activeBtn.classList.add('bg-indigo-50', 'text-indigo-700', 'border-r-4', 'border-indigo-600');
             
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
