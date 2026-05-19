@@ -67,7 +67,6 @@
         }
     </style>
     <script>
-        // فحص مسبق لمنع وميض الشاشة الأبيض عند التحديث
         if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
         } else {
@@ -75,7 +74,7 @@
         }
     </script>
 </head>
-<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 antialiased pt-[240px] lg:pt-[190px] transition-colors duration-300">
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 antialiased pt-[230px] lg:pt-[145px] transition-colors duration-300">
 
     <header class="fixed top-0 left-0 right-0 z-50 flex flex-col shadow-xl">
         
@@ -137,8 +136,8 @@
 
     </header>
 
-    <section id="hero" class="relative min-h-[85vh] flex items-center justify-center bg-cover bg-center bg-no-repeat rounded-b-3xl overflow-hidden shadow-2xl py-20" style="background-image: linear-gradient(to bottom, rgba(241, 245, 249, 0.8), rgba(15, 23, 42, 0.95)), url('assets/camp-identity.jpg');">
-        <div class="container mx-auto px-6 text-center max-w-4xl z-10">
+    <section id="hero" class="relative min-h-[70vh] lg:min-h-[85vh] flex items-center justify-center bg-cover bg-top bg-no-repeat rounded-b-3xl overflow-hidden shadow-2xl py-20" style="background-image: linear-gradient(to bottom, rgba(241, 245, 249, 0.7), rgba(15, 23, 42, 0.95)), url('assets/camp-identity.jpg');">
+        <div class="container mx-auto px-6 text-center max-w-4xl z-10 mt-10">
             <span class="text-xs md:text-sm font-bold text-indigo-700 dark:text-amber-400 tracking-widest bg-indigo-500/10 dark:bg-amber-500/10 px-4 py-2 rounded-full border border-indigo-500/20 dark:border-amber-500/20 uppercase inline-block mb-6">موسم الحج عام ١٤٤٧هـ</span>
             <h2 class="text-4xl md:text-6xl font-black text-slate-900 dark:text-white leading-tight">الكشافة السعودية <br><span class="text-indigo-700 dark:text-amber-400">في خدمة ضيوف الرحمن</span></h2>
             <p class="text-sm md:text-lg text-slate-700 dark:text-slate-300 mt-6 max-w-2xl mx-auto font-medium leading-relaxed">
