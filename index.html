@@ -4,85 +4,779 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>النظام الإلكتروني | معسكر مدرسة الابتدائية 36</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
     <script>
-        // إجبار المتصفح على البقاء في الأعلى عند التحميل
-        window.onload = function() {
-            setTimeout(function() { window.scrollTo(0, 0); }, 100);
-        };
-        tailwind.config = { darkMode: 'class' };
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    scale: { '102': '1.02' }
+                }
+            }
+        }
     </script>
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         body { font-family: 'Cairo', sans-serif; }
+        .tree-branch::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 24px;
+            background-color: #475569;
+            opacity: 0.3;
+        }
         .scrollbar-none::-webkit-scrollbar { display: none; }
         .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* خصائص شريط الأخبار المتحرك */
         .ticker-wrap { overflow: hidden; position: relative; white-space: nowrap; display: flex; align-items: center; }
         .ticker-content { display: inline-flex; animation: ticker 35s linear infinite; }
         .ticker-content:hover { animation-play-state: paused; cursor: default; }
         @keyframes ticker { 0% { transform: translateX(100vw); } 100% { transform: translateX(-100%); } }
-        /* تحسين عرض الهيكل في الجوال */
-        @media (max-width: 768px) { .tree-wrapper { min-width: 800px; } }
     </style>
+    <script>
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
 </head>
-<body class="bg-slate-50 dark:bg-slate-900 transition-colors duration-300 pt-[180px] lg:pt-[150px]">
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 antialiased pt-[230px] lg:pt-[145px] transition-colors duration-300">
 
-    <header class="fixed top-0 left-0 right-0 z-50 shadow-xl bg-white dark:bg-slate-950">
-        <nav class="border-b border-amber-500/30 py-4 px-6 flex justify-between items-center">
-            <div class="flex items-center gap-2">
-                <img src="assets/logo-scouts.png" class="w-10 h-10 object-contain">
-                <h2 class="text-xs font-black text-indigo-950 dark:text-amber-400">معسكر الابتدائية 36</h2>
+    <header class="fixed top-0 left-0 right-0 z-50 flex flex-col shadow-xl">
+        <nav class="bg-white/95 text-slate-900 dark:bg-slate-950/90 dark:text-white backdrop-blur-md border-b border-amber-500/30 py-4 lg:py-5 w-full">
+            <div class="w-full px-6 md:px-14 flex flex-col lg:flex-row justify-between items-center gap-5">
+                <div class="flex items-center gap-4 shrink-0">
+                    <img src="assets/logo-scouts.png" alt="شعار جمعية الكشافة" class="w-14 h-14 object-contain bg-white rounded-xl p-1.5 border border-slate-200 dark:border-slate-800 shadow-md">
+                    <div class="text-right">
+                        <h2 class="text-base font-black text-indigo-950 dark:text-amber-400">معسكر مدرسة الابتدائية 36 بمكة</h2>
+                        <span class="text-[11px] font-bold text-slate-500 dark:text-slate-400 block">جوالة جامعة جازان | حج ١٤٤٧هـ</span>
+                    </div>
+                </div>
+                
+                <div class="flex flex-row flex-nowrap gap-x-4 text-[13px] font-black text-slate-800 dark:text-slate-200 overflow-x-auto scrollbar-none py-1">
+                    <a href="#hero" class="hover:text-indigo-600 dark:hover:text-amber-400 shrink-0">الرئيسية</a>
+                    <a href="#about" class="hover:text-indigo-600 dark:hover:text-amber-400 shrink-0">عن الكشافة</a>
+                    <a href="#guide" class="hover:text-indigo-600 dark:hover:text-amber-400 shrink-0">حقيبة القادة</a>
+                    <a href="#strategy" class="hover:text-indigo-600 dark:hover:text-amber-400 shrink-0">التوجه الاستراتيجي</a>
+                    <a href="#leaders" class="hover:text-indigo-600 dark:hover:text-amber-400 shrink-0">الهيكل الشجري</a>
+                    <a href="#schedule" class="hover:text-indigo-600 dark:hover:text-amber-400 shrink-0">البرنامج اليومي</a>
+                    <a href="#excellence" class="hover:text-indigo-600 dark:hover:text-amber-400 shrink-0">محاور التميز</a>
+                    <a href="#prayers" class="hover:text-indigo-600 dark:hover:text-amber-400 shrink-0">مواقيت الصلاة</a>
+                    <a href="#logistics" class="hover:text-indigo-600 dark:hover:text-amber-400 shrink-0">اللوجستيات</a>
+                    <a href="#safety" class="hover:text-indigo-600 dark:hover:text-amber-400 shrink-0">السلامة</a>
+                </div>
+
+                <button onclick="toggleTheme()" class="p-3 bg-slate-100 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-md">
+                    <i id="theme-icon" data-lucide="moon" class="w-5 h-5 text-indigo-600 dark:text-amber-400"></i>
+                </button>
             </div>
-            <div class="flex gap-4 overflow-x-auto scrollbar-none text-[12px] font-black text-slate-800 dark:text-slate-200">
-                <a href="#hero" class="shrink-0">الرئيسية</a>
-                <a href="#leaders" class="shrink-0">الهيكل التنظيمي</a>
-                <a href="#guide" class="shrink-0">الحقيبة</a>
-                <a href="#schedule" class="shrink-0">البرنامج</a>
-                <a href="#prayers" class="shrink-0">الصلاة</a>
-            </div>
-            <button onclick="toggleTheme()" class="p-2 bg-slate-100 dark:bg-slate-800 rounded-lg">
-                <i id="theme-icon" data-lucide="moon" class="w-4 h-4 text-indigo-600 dark:text-amber-400"></i>
-            </button>
         </nav>
-        <div class="bg-indigo-900 h-10 flex items-center overflow-hidden">
-            <div class="bg-amber-500 px-4 text-xs font-black shrink-0">أخبار المعسكر</div>
-            <div class="ticker-wrap flex-1 text-white text-xs font-bold">
-                <div class="ticker-content flex gap-12 px-4">
-                    <span>اكتمال جاهزية المعسكر بنسبة 100%.</span>
-                    <span>الاجتماع التعريفي اليوم بعد المغرب.</span>
+
+        <div class="w-full bg-indigo-900 dark:bg-slate-950 flex items-stretch h-10 border-b border-indigo-950 dark:border-slate-900 overflow-hidden">
+            <div class="bg-amber-500 text-indigo-950 px-4 flex items-center font-black text-xs shrink-0 z-10 shadow-[4px_0_10px_rgba(0,0,0,0.3)]">
+                <i data-lucide="radio" class="w-4 h-4 ml-2 animate-pulse text-red-700"></i>
+                أخبار المعسكر
+            </div>
+            <div class="ticker-wrap flex-1 bg-indigo-800/90 dark:bg-slate-900/90 text-white dark:text-amber-400 text-xs font-bold">
+                <div class="ticker-content flex items-center gap-12 px-4 h-full pt-1">
+                    <span class="flex items-center gap-2"><i data-lucide="newspaper" class="w-4 h-4 text-amber-400"></i> عاجل: اكتمال جاهزية معسكر مدرسة الابتدائية 36 بنسبة ١٠٠٪ لخدمة ضيوف الرحمن.</span>
+                    <span class="flex items-center gap-2"><i data-lucide="users" class="w-4 h-4 text-amber-400"></i> تنبيه: الاجتماع التعريفي لقادة المجموعات اليوم بعد صلاة المغرب.</span>
+                    <span class="flex items-center gap-2"><i data-lucide="award" class="w-4 h-4 text-amber-400"></i> إشادة: جمعية الكشافة تشيد بجهود جوالة جامعة جازان.</span>
                 </div>
             </div>
         </div>
     </header>
 
-    <section id="hero" class="h-[60vh] bg-cover bg-top bg-no-repeat flex items-center justify-center" style="background-image: linear-gradient(to bottom, rgba(241, 245, 249, 0.5), rgba(15, 23, 42, 0.9)), url('assets/camp-identity.jpg');">
-        <h1 class="text-3xl md:text-5xl font-black text-white text-center px-4">الكشافة السعودية في خدمة ضيوف الرحمن</h1>
-    </section>
+    <section id="hero" class="relative min-h-[70vh] lg:min-h-[85vh] flex items-center justify-center bg-cover bg-top bg-no-repeat rounded-b-3xl overflow-hidden py-20" style="background-image: linear-gradient(to bottom, rgba(241, 245, 249, 0.7), rgba(15, 23, 42, 0.95)), url('assets/camp-identity.jpg');">
+        <div class="container mx-auto px-6 text-center z-10 mt-10">
+            <span class="text-xs md:text-sm font-bold text-indigo-700 dark:text-amber-400 tracking-widest bg-indigo-500/10 dark:bg-amber-500/10 px-4 py-2 rounded-full border border-indigo-500/20 dark:border-amber-500/20 uppercase inline-block mb-6">موسم الحج عام ١٤٤٧هـ</span>
+            <h2 class="text-4xl md:text-6xl font-black text-slate-900 dark:text-white leading-tight">الكشافة السعودية <br><span class="text-indigo-700 dark:text-amber-400">في خدمة ضيوف الرحمن</span></h2>
+            <p class="text-sm md:text-lg text-slate-700 dark:text-slate-300 mt-6 max-w-2xl mx-auto font-medium leading-relaxed">
+                    معسكر مدرسة الابتدائية 36 بمكة المكرمة. نفخر بخدمة حجاج بيت الله الحرام بكل إخلاص وتفانٍ لضمان أعلى مستويات الانضباط والجودة.
+            </p>
+            
+            <div class="mt-10 flex flex-wrap justify-center gap-4">
+                <a href="#guide" class="px-6 py-3.5 bg-indigo-700 dark:bg-amber-500 text-white dark:text-slate-950 font-black text-sm md:text-base rounded-xl shadow-xl transition-all transform hover:-translate-y-0.5 cursor-pointer">الحقيبة الإرشادية للقادة</a>
+                <a href="#leaders" class="px-6 py-3.5 bg-white dark:bg-slate-800 text-slate-800 dark:text-white font-bold text-sm md:text-base rounded-xl border border-slate-300 dark:border-slate-700 shadow-xl transition-all transform hover:-translate-y-0.5 cursor-pointer">الهيكل التنظيمي الشجري</a>
+            </div>
 
-    <section id="leaders" class="py-20 overflow-x-auto scrollbar-none">
-        <div class="container mx-auto tree-wrapper">
-            <div class="flex flex-col items-center">
-                <div class="bg-indigo-900 p-4 rounded-xl text-center w-64 text-white font-bold">
-                    مدير الفريق: ماجد بن محمد آل خيرات
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-16 max-w-3xl mx-auto">
+                <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-5 rounded-2xl flex items-center justify-between shadow-md">
+                    <div class="text-right">
+                        <span class="block text-2xl font-black text-slate-900 dark:text-white">+٦٠</span>
+                        <span class="block text-xs text-slate-500 dark:text-slate-400 font-bold mt-0.5">سنة من العطاء والخدمة</span>
+                    </div>
+                    <div class="p-2.5 bg-slate-100 dark:bg-slate-900 rounded-xl text-indigo-600 dark:text-amber-400 border border-slate-200 dark:border-slate-700"><i data-lucide="award" class="w-6 h-6"></i></div>
                 </div>
-                <div class="grid grid-cols-5 gap-4 mt-10">
-                    <div class="bg-white dark:bg-slate-800 p-3 rounded-lg border dark:border-slate-700 text-center text-[10px] font-bold">
-                        قائد البرامج: عبدالهادي الشهري
+                <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-5 rounded-2xl flex items-center justify-between shadow-md">
+                    <div class="text-right">
+                        <span class="block text-2xl font-black text-slate-900 dark:text-white">١٤٤٧هـ</span>
+                        <span class="block text-xs text-slate-500 dark:text-slate-400 font-bold mt-0.5">العام التشغيلي الحالي</span>
                     </div>
-                    <div class="bg-white dark:bg-slate-800 p-3 rounded-lg border dark:border-slate-700 text-center text-[10px] font-bold">
-                        قائد الساحة والدعم: راجس إبراهيم الدوسري
+                    <div class="p-2.5 bg-slate-100 dark:bg-slate-900 rounded-xl text-indigo-600 dark:text-amber-400 border border-slate-200 dark:border-slate-700"><i data-lucide="calendar" class="w-6 h-6"></i></div>
+                </div>
+                <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-5 rounded-2xl flex items-center justify-between shadow-md">
+                    <div class="text-right">
+                        <span class="block text-2xl font-black text-slate-900 dark:text-white">١٠٠٪</span>
+                        <span class="block text-xs text-slate-500 dark:text-slate-400 font-bold mt-0.5">جاهزية أمن وسلامة</span>
                     </div>
-                    </div>
+                    <div class="p-2.5 bg-slate-100 dark:bg-slate-900 rounded-xl text-indigo-600 dark:text-amber-400 border border-slate-200 dark:border-slate-700"><i data-lucide="shield-check" class="w-6 h-6"></i></div>
+                </div>
             </div>
         </div>
     </section>
 
+    <section id="about" class="min-h-[60vh] flex items-center bg-white dark:bg-slate-950 py-20 border-b border-slate-200 dark:border-slate-900 transition-colors duration-300">
+        <div class="container mx-auto px-6 max-w-5xl">
+            <div class="flex items-center gap-3 mb-2">
+                <div class="text-indigo-600 dark:text-amber-400"><i data-lucide="landmark" class="w-8 h-8"></i></div>
+                <h3 class="text-3xl font-black text-slate-950 dark:text-amber-400">جمعية الكشافة العربية السعودية</h3>
+            </div>
+            <p class="text-sm font-bold text-slate-500 dark:text-slate-400 mb-8 mr-11">التأسيس الرسمي والركائز الأساسية لخدمات الحج الميدانية</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm font-medium leading-relaxed">
+                <div class="bg-slate-50 dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-300 shadow-xs transition-colors">
+                    <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2"><i data-lucide="scroll" class="w-5 h-5 text-indigo-600 dark:text-amber-400"></i>  النشأة والاعتماد الدولي الرسمي</h4>
+                    <p class="mb-4">بدأت الحركة الكشفية في المملكة العربية السعودية بجهود مباركة داخل المدارس عام ١٣٥٣هـ، وتأسست الجمعية رسمياً بمرسوم ملكي في عام 1381هـ (1961م).</p>
+                    <p>وحصلت على الاعتراف الدولي بانضمامها للمنظمة العالمية للحركة الكشفية (WOSM) عام 1383هـ (1963م) في مؤتمر لشبونة شهادةً بتميز الكشافة بالمملكة.</p>
+                </div>
+                <div class="bg-slate-50 dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-300 shadow-xs transition-colors">
+                    <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2"><i data-lucide="layers" class="w-5 h-5 text-indigo-600 dark:text-amber-400"></i> المحاور الميدانية لتشغيل أعمال معسكرات الخدمة</h4>
+                    <ul class="space-y-3.5 text-xs text-slate-600 dark:text-slate-400">
+                        <li class="flex items-start gap-2.5"><i data-lucide="map-pin" class="w-4 h-4 text-indigo-600 dark:text-amber-400 mt-0.5 shrink-0"></i> <span><strong class="text-slate-900 dark:text-white">المسح والإرشاد:</strong> مسح المشاعر وإعداد الخرائط السنوية لإرشاد الحجاج بالتنسيق مع وزارة الحج.</span></li>
+                        <li class="flex items-start gap-2.5"><i data-lucide="train" class="w-4 h-4 text-indigo-600 dark:text-amber-400 mt-0.5 shrink-0"></i> <span><strong class="text-slate-900 dark:text-white">إدارة وإرشاد الحشود:</strong> تيسير الحركة التدفقية البشرية حول منشأة الجمرات والقطارات.</span></li>
+                        <li class="flex items-start gap-2.5"><i data-lucide="heart-pulse" class="w-4 h-4 text-indigo-600 dark:text-amber-400 mt-0.5 shrink-0"></i> <span><strong class="text-slate-900 dark:text-white">الإسناد الإنساني والصحي:</strong> مساندة الصحة والهلال الأحمر في توجيه ونقل المرضى والعجزة.</span></li>
+                        <li class="flex items-start gap-2.5"><i data-lucide="clipboard-check" class="w-4 h-4 text-indigo-600 dark:text-amber-400 mt-0.5 shrink-0"></i> <span><strong class="text-slate-900 dark:text-white">الرقابة والتموين:</strong> معاونة جولات التجارة والأمانة لمراقبة السلع وصلاحية الأغذية بالمشاعر.</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="guide" class="min-h-screen flex items-center bg-slate-50 dark:bg-slate-900 py-20 border-b border-slate-200 dark:border-slate-900 transition-colors duration-300">
+        <div class="container mx-auto px-6 max-w-5xl">
+            <div class="flex items-center gap-3 mb-2">
+                <div class="text-indigo-600 dark:text-amber-400"><i data-lucide="briefcase" class="w-8 h-8"></i></div>
+                <h3 class="text-3xl font-black text-slate-900 dark:text-amber-400">حقيبة قادة مجموعات الجوالة</h3>
+            </div>
+            <p class="text-sm font-bold text-slate-500 dark:text-slate-400 mb-6 mr-11 transition-colors">التوجيهات والتعليمات الرسمية لإدارة المجموعات الكشفية بالميدان</p>
+            
+            <div class="mb-8 p-4 bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-100 dark:border-indigo-800 rounded-xl flex flex-col md:flex-row items-center justify-between gap-4 shadow-sm transition-colors">
+                <div class="flex items-center gap-2 text-indigo-900 dark:text-amber-400 font-bold">
+                    <i data-lucide="map" class="w-5 h-5"></i>
+                    <span>الخرائط الإرشادية للمشاعر المقدسة:</span>
+                </div>
+                <div class="flex gap-6">
+                    <a href="http://www.scouts.org.sa/haj/map26/mina26.jpg" target="_blank" rel="noopener noreferrer" class="text-indigo-600 dark:text-indigo-400 font-black hover:text-indigo-800 dark:hover:text-amber-300 hover:underline flex items-center gap-1.5 transition-colors">
+                        <i data-lucide="map-pinned" class="w-4 h-4"></i> خريطة منى
+                    </a>
+                    <a href="http://www.scouts.org.sa/haj/map26/arafat26.jpg" target="_blank" rel="noopener noreferrer" class="text-indigo-600 dark:text-indigo-400 font-black hover:text-indigo-800 dark:hover:text-amber-300 hover:underline flex items-center gap-1.5 transition-colors">
+                        <i data-lucide="map-pinned" class="w-4 h-4"></i> خريطة عرفات
+                    </a>
+                </div>
+            </div>
+
+            <div class="space-y-6 text-sm">
+                <div class="p-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-sm leading-relaxed text-slate-800 dark:text-slate-100 transition-colors">
+                    <h4 class="text-base font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-2"><i data-lucide="messages-square" class="text-indigo-600 dark:text-amber-400 w-5 h-5"></i> أخي قائد مجموعة الجوالة المسؤول</h4>
+                    <p class="font-medium text-slate-700 dark:text-slate-300">
+                        أهلاً بك ضمن فريق العمل في معسكرنا، ونسأل الله لك التوفيق والسداد في خدمة ضيوف الرحمن. إن مشاركتك في هذا المعسكر تمثل رسالة عظيمة ومسؤولية وطنية وكشفية سامية، حيث يجتمع الجوالة على العمل بروح الفريق، والانضباط والمبادرة، وخدمة الآخرين بكل إخلاص. وقد أعدت هذه الحقيبة لتكون معيناً لك في أداء مهامك القيادية داخل المعسكر، بما يسهم في نجاح الأعمال الميدانية والتنظيمية وتحقيق أهداف المعسكر. نؤكد على أهمية الالتزام بالتعليمات والأنظمة ومواعيد البرامج، والعمل بروح الجوال المسؤول القادر على تحمل المهام وخدمة ضيوف الرحمن.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 rounded-2xl shadow-sm text-slate-800 dark:text-slate-100 transition-colors">
+                        <h4 class="text-base font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2"><i data-lucide="check-square" class="text-indigo-600 dark:text-amber-400 w-5 h-5"></i> أبرز المهام القيادية والتنظيمية المعتمدة</h4>
+                        <ul class="space-y-3 font-semibold text-slate-700 dark:text-slate-300">
+                            <li class="flex items-start gap-2"><i data-lucide="dot" class="w-4 h-4 text-indigo-600 dark:text-amber-400 mt-1 shrink-0"></i> تحفيز اخوانك افراد الفرقة الكشفية على الاخلاص والتفاني في العمل والتأكد من جاهزيتهم.</li>
+                            <li class="flex items-start gap-2"><i data-lucide="dot" class="w-4 h-4 text-indigo-600 dark:text-amber-400 mt-1 shrink-0"></i> توزيع المهام اليومية بما يعكس جودة أدائكم والعدالة.</li>
+                            <li class="flex items-start gap-2"><i data-lucide="dot" class="w-4 h-4 text-indigo-600 dark:text-amber-400 mt-1 shrink-0"></i> متابعة تنفيذ الأعمال الميدانية المكلف بها الفريق بحزم وانضباط.</li>
+                            <li class="flex items-start gap-2"><i data-lucide="dot" class="w-4 h-4 text-indigo-600 dark:text-amber-400 mt-1 shrink-0"></i> تعزيز روح التعاون والاحسان بين أفراد المجموعة.</li>
+                            <li class="flex items-start gap-2"><i data-lucide="dot" class="w-4 h-4 text-indigo-600 dark:text-amber-400 mt-1 shrink-0"></i> رفع الملاحظات والتقارير اليومية لإدارة المعسكر.</li>
+                            <li class="flex items-start gap-2"><i data-lucide="dot" class="w-4 h-4 text-indigo-600 dark:text-amber-400 mt-1 shrink-0"></i> الالتزام بالمواعيد والبرامج والتعليمات.</li>
+                            <li class="flex items-start gap-2"><i data-lucide="dot" class="w-4 h-4 text-indigo-600 dark:text-amber-400 mt-1 shrink-0"></i> المسهمة في حل المشكلات الميدانية بأسلوب تربوي مناسب.</li>
+                            <li class="flex items-start gap-2"><i data-lucide="dot" class="w-4 h-4 text-indigo-600 dark:text-amber-400 mt-1 shrink-0"></i> المحافظة على العهدة والتأكد من تسليمها كاملة للخدمات.</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 rounded-2xl shadow-sm text-slate-800 dark:text-slate-100 transition-colors">
+                        <h4 class="text-base font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2"><i data-lucide="alert-octagon" class="text-red-500 w-5 h-5"></i> ضوابط السلوك العام وشروط الاستبعاد</h4>
+                        <p class="text-xs text-red-600 dark:text-red-400 font-bold mb-3">⚠️ سيتم استبعاد أي مشارك بشكل فوري في الحالات التالية:</p>
+                        <ul class="space-y-2.5 font-semibold text-xs mb-4">
+                            <li class="flex items-center gap-2 text-slate-700 dark:text-slate-300"><i data-lucide="minus" class="w-4 h-4 text-red-500"></i> مخالفة الأنظمة العامة والتعليمات الصادرة من القيادة.</li>
+                            <li class="flex items-center gap-2 text-slate-700 dark:text-slate-300"><i data-lucide="minus" class="w-4 h-4 text-red-500"></i> الإخلال بالانضباط الكشفي والسلوك العام بالمعسكر.</li>
+                            <li class="flex items-center gap-2 text-slate-700 dark:text-slate-300"><i data-lucide="minus" class="w-4 h-4 text-red-500"></i> التدخين نهائياً داخل معسكر ومرافق المدرسة.</li>
+                            <li class="flex items-center gap-2 text-slate-700 dark:text-slate-300"><i data-lucide="minus" class="w-4 h-4 text-red-500"></i> الإساءة لضيوف الرحمن أو لزملاء التطوع والعمل الكشفي.</li>
+                            <li class="flex items-center gap-2 text-slate-700 dark:text-slate-300"><i data-lucide="minus" class="w-4 h-4 text-red-500"></i> العبث المتعمد بالعهد أو الممتلكات المخصصة للخدمة.</li>
+                        </ul>
+                        <div class="pt-3 border-t border-slate-200 dark:border-slate-700 text-[11px] text-slate-600 dark:text-slate-400 space-y-1.5">
+                            <p>💰 <strong>ملاحظة المكافآت والجزاءات:</strong> يحرم من المكافأة المالية من يحج دون إذن القيادة.</p>
+                            <p>🚨 يحرم من المكافأة من يغادر المعسكر قبل إنهاء المهمة ويتم اتخاذ الإجراء المناسب.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 rounded-2xl shadow-sm text-slate-800 dark:text-slate-100 transition-colors">
+                    <h4 class="text-base font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2"><i data-lucide="check-check" class="text-indigo-600 dark:text-amber-400 w-5 h-5"></i> التعليمات والضوابط العامة لقادة المجموعات</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-bold">
+                        <div class="p-3 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 rounded-xl border border-slate-200 dark:border-slate-700 flex items-center gap-2"><span>1.</span> <span>استشعار حرمة المكان والزمان وإظهار الكشاف السعودي المسلم بالمظهر اللائق به.</span></div>
+                        <div class="p-3 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 rounded-xl border border-slate-200 dark:border-slate-700 flex items-center gap-2"><span>2.</span> <span>الحرص على الالتزام بالآداب الإسلامية والأخلاق الفاضلة والقدوة الحسنة داخل المعسكر.</span></div>
+                        <div class="p-3 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 rounded-xl border border-slate-200 dark:border-slate-700 flex items-center gap-2"><span>3.</span> <span>التأكيد على أداء الصلاة في وقتها جماعة حسب المدرسة المعتمدة.</span></div>
+                        <div class="p-3 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 rounded-xl border border-slate-200 dark:border-slate-700 flex items-center gap-2"><span>4.</span> <span>المسؤولية الكاملة عن أفراد مجموعة الجوالة بمتابعتهم داخل المعسكر وخلال المهام الميدانية.</span></div>
+                        <div class="p-3 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 rounded-xl border border-slate-200 dark:border-slate-700 flex items-center gap-2"><span>5.</span> <span>التقيد الدقيق بمواعيد وبرامج المعسكر المختلفة المعتمدة بالخطة الكشفية.</span></div>
+                        <div class="p-3 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 rounded-xl border border-slate-200 dark:border-slate-700 flex items-center gap-2"><span>6.</span> <span>استلام وتسليم العهد كاملة والمحافظة عليها وعلى نظافتها العامة والشخصية.</span></div>
+                        <div class="p-3 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 rounded-xl border border-slate-200 dark:border-slate-700 flex items-center gap-2"><span>7.</span> <span>التنسيق مع قائد البرامج في حالة الرغبة في إلقاء كلمات بعد الصلاة وعدم إلقائها إلا بعد اعتمادها رسمياً.</span></div>
+                        <div class="p-3 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 rounded-xl border border-slate-200 dark:border-slate-700 flex items-center gap-2"><span>8.</span> <span>عدم الخروج من المعسكر إلا بإذن مسبق مع احترام وتطبيق التسلسل القيادي المتبع.</span></div>
+                        <div class="p-3 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 rounded-xl border border-slate-200 dark:border-slate-700 flex items-center gap-2"><span>9.</span> <span>تنبيه الفرقة بتجنب النغمات الموسيقية وإغلاق أجهزة الجوال تماماً أثناء الصلاة.</span></div>
+                        <div class="p-3 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 rounded-xl border border-slate-200 dark:border-slate-700 flex items-center gap-2"><span>10.</span> <span>متابعة تأكيد حجوزات العودة لكافة أفراد الفرقة وحضور اجتماعات القادة الدورية.</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="strategy" class="min-h-[80vh] flex items-center bg-white dark:bg-slate-950 py-20 border-b border-slate-200 dark:border-slate-900 transition-colors duration-300">
+        <div class="container mx-auto px-6 max-w-5xl">
+            <div class="flex items-center gap-3 mb-8 pb-2 border-b border-slate-200 dark:border-slate-800">
+                <div class="text-indigo-600 dark:text-amber-400"><i data-lucide="compass" class="w-8 h-8"></i></div>
+                <h3 class="text-3xl font-black text-slate-900 dark:text-amber-400">التوجه الاستراتيجي للمعسكر</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 text-sm font-medium">
+                <div class="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-2xl shadow-xs text-slate-800 dark:text-slate-300 transition-colors">
+                    <h4 class="text-base font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2"><i data-lucide="eye" class="w-5 h-5 text-indigo-600 dark:text-amber-400"></i> الرؤية المعتمدة</h4>
+                    <p class="leading-relaxed"> أن يكون معسكر مدرسة الإبتدائية 36 بيئة للتميز في التنظيم والانضباط والخدمة الكشفية من خلال بيئة آمنة ومحفزة تسهم في خدمة ضيوف الرحمن بكفاءة عالية.</p>
+                </div>
+                <div class="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-2xl shadow-xs text-slate-800 dark:text-slate-300 transition-colors">
+                    <h4 class="text-base font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2"><i data-lucide="mail-open" class="w-5 h-5 text-indigo-600 dark:text-amber-400"></i> الرسالة المعتمدة</h4>
+                    <p class="leading-relaxed"> تقديم خدمات كشفية منظمة من خلال فرق الجوالة في بيئة آمنة وميسرة تسهم في خدمة ضيوف الرحمن وتعزز روح المسؤولية والانتماء، وتنمي المهارات وتحقق رسالة الكشافة في خدمة المجتمع.</p>
+                </div>
+            </div>
+            
+            <h4 class="text-base font-black text-slate-900 dark:text-white mb-4">الأهداف الاستراتيجية  :</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-xs font-bold text-slate-700 dark:text-slate-300">
+                <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 transition-colors">1. تنظيم أعمال فرق الجوالة داخل المعسكر.</div>
+                <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 transition-colors">2. توزيع المهام على القادة وفرق الجوالة بوضوح وفعالية.</div>
+                <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 transition-colors">3. تنمية مهارات الجوالة ميدانياً وتعزيز جاهزيتهم.</div>
+                <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 transition-colors">4. دعم أعمال الإرشاد والخدمة الميدانية وفق أعلى معايير الجودة.</div>
+                <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 transition-colors">5. تعزيز روح التطوع والعمل الجماعي بين فرق الجوالة.</div>
+                <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 transition-colors">6. تنفيذ برامج نوعية تثري تجربة الجوالة وتحقق الأثر الإيجابي.</div>
+                <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 transition-colors">7. رفع مستوى السلامة والانضباط داخل المعسكر.</div>
+                <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 transition-colors">8. تطوير بيئة المعسكر بشكل مستمر وتحسين الخدمات المقدمة.</div>
+                <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 transition-colors sm:col-span-2 md:col-span-1">9. تقييم الأداء وقياس الأثر لضمان التحسين المستدام.</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="leaders" class="min-h-screen flex items-center bg-slate-50 dark:bg-slate-900 py-20 border-b border-slate-200 dark:border-slate-900 transition-colors duration-300">
+        <div class="container mx-auto px-6 max-w-6xl w-full">
+            <div class="flex items-center gap-3 mb-2 justify-center md:justify-start">
+                <div class="text-indigo-600 dark:text-amber-400"><i data-lucide="git-merge" class="w-8 h-8"></i></div>
+                <h3 class="text-3xl font-black text-slate-900 dark:text-amber-400">الهيكل التنظيمي </h3>
+            </div>
+            <p class="text-sm font-bold text-slate-500 dark:text-slate-400 mb-16 text-center md:text-right md:mr-11 transition-colors">التسلسل القيادي المعتمد للمعسكر</p>
+            
+            <div class="flex flex-col items-center w-full overflow-x-auto pb-6 scrollbar-none">
+                <div class="min-w-[1050px] flex flex-col items-center">
+                    
+                    <div class="relative pb-12 flex justify-center w-full">
+                        <div class="bg-indigo-900 border-2 border-amber-500 p-4 rounded-xl text-center shadow-xl w-64 z-10 backdrop-blur-md">
+                            <div class="flex justify-center mb-1 text-amber-400"><i data-lucide="crown" class="w-5 h-5"></i></div>
+                            <span class="text-[10px] font-black text-amber-400 tracking-wider uppercase">قائد المعسكر</span>
+                            <h4 class="text-sm font-black text-white mt-1">رمزي أحمد محمد مهدي</h4>
+                        </div>
+                        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0.5 h-12 bg-slate-300 dark:bg-slate-700"></div>
+                    </div>
+
+                    <div class="relative pb-12 flex justify-center gap-16 w-full">
+                        <div class="absolute top-0 left-[20%] right-[20%] h-0.5 bg-slate-300 dark:bg-slate-700"></div>
+                        
+                        <div class="relative pt-6 flex justify-center tree-branch">
+                            <div class="bg-white dark:bg-slate-950 border border-slate-200 dark:border-indigo-500/60 p-4 rounded-xl text-center shadow-md w-56 z-10 text-slate-800 dark:text-slate-300 transition-colors">
+                                <div class="flex justify-center mb-1 text-indigo-600 dark:text-indigo-400"><i data-lucide="shield" class="w-4 h-4"></i></div>
+                                <span class="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 block">مساعد قائد المعسكر</span>
+                                <h4 class="text-[11px] font-black mt-1">احمد عبدالرحمن بوري</h4>
+                            </div>
+                        </div>
+
+                        <div class="relative pt-6 flex justify-center tree-branch">
+                            <div class="bg-white dark:bg-slate-950 border border-slate-200 dark:border-emerald-500/60 p-4 rounded-xl text-center shadow-md w-56 z-10 text-slate-800 dark:text-slate-300 transition-colors">
+                                <div class="flex justify-center mb-1 text-emerald-600 dark:text-emerald-400"><i data-lucide="map" class="w-4 h-4"></i></div>
+                                <span class="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 block">مساعد القائد للمسح والارشاد المتجول</span>
+                                <h4 class="text-[11px] font-black mt-1">يوسف عبدالله حمد السلوم</h4>
+                            </div>
+                        </div>
+
+                        <div class="relative pt-6 flex justify-center tree-branch">
+                            <div class="bg-white dark:bg-slate-950 border border-slate-200 dark:border-purple-500/60 p-4 rounded-xl text-center shadow-md w-56 z-10 text-slate-800 dark:text-slate-300 transition-colors">
+                                <div class="flex justify-center mb-1 text-purple-600 dark:text-purple-400"><i data-lucide="pen-tool" class="w-4 h-4"></i></div>
+                                <span class="text-[10px] font-bold text-purple-600 dark:text-purple-400 block">قائد السكرتارية</span>
+                                <h4 class="text-[11px] font-black mt-1">عبدالرحمن علي احمد الزهراني</h4>
+                            </div>
+                        </div>
+
+                        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0.5 h-12 bg-slate-300 dark:bg-slate-700"></div>
+                    </div>
+
+                    <div class="relative w-full pt-6">
+                        <div class="absolute top-0 left-[8%] right-[8%] h-0.5 bg-slate-300 dark:bg-slate-700"></div>
+                        
+                        <div class="grid grid-cols-6 gap-4 w-full">
+                            
+                            <div class="relative pt-6 flex flex-col items-center text-center tree-branch">
+                                <div class="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 p-3 rounded-xl shadow-md w-full max-w-[160px] z-10 text-slate-800 dark:text-slate-300 transition-colors h-full flex flex-col justify-center">
+                                    <div class="flex justify-center mb-1 text-sky-500"><i data-lucide="map-pin" class="w-4 h-4"></i></div>
+                                    <span class="text-[9px] font-bold text-slate-500 block">اخصائي مسح وارشاد متجول</span>
+                                    <h4 class="text-[11px] font-black mt-1">ماجد صالح محمد الشامي</h4>
+                                </div>
+                            </div>
+
+                            <div class="relative pt-6 flex flex-col items-center text-center tree-branch">
+                                <div class="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 p-3 rounded-xl shadow-md w-full max-w-[160px] z-10 text-slate-800 dark:text-slate-300 transition-colors h-full flex flex-col justify-center">
+                                    <div class="flex justify-center mb-1 text-amber-500"><i data-lucide="utensils" class="w-4 h-4"></i></div>
+                                    <span class="text-[9px] font-bold text-slate-500 block">قائد التغذية والعهد والخدمات</span>
+                                    <h4 class="text-[11px] font-black mt-1">سليمان صالح السلوم</h4>
+                                </div>
+                            </div>
+
+                            <div class="relative pt-6 flex flex-col items-center text-center tree-branch">
+                                <div class="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 p-3 rounded-xl shadow-md w-full max-w-[160px] z-10 text-slate-800 dark:text-slate-300 transition-colors h-full flex flex-col justify-center">
+                                    <div class="flex justify-center mb-1 text-orange-500"><i data-lucide="coffee" class="w-4 h-4"></i></div>
+                                    <span class="text-[9px] font-bold text-slate-500 block">مساعد التغذية والعهد والخدمات</span>
+                                    <h4 class="text-[11px] font-black mt-1">مشاري مشعل الحميد</h4>
+                                </div>
+                            </div>
+
+                            <div class="relative pt-6 flex flex-col items-center text-center tree-branch">
+                                <div class="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 p-3 rounded-xl shadow-md w-full max-w-[160px] z-10 text-slate-800 dark:text-slate-300 transition-colors h-full flex flex-col justify-center">
+                                    <div class="flex justify-center mb-1 text-teal-500"><i data-lucide="box" class="w-4 h-4"></i></div>
+                                    <span class="text-[9px] font-bold text-slate-500 block">قائد الساحة والدعم والمساندة</span>
+                                    <h4 class="text-[11px] font-black mt-1">راجس إبراهيم الدوسري</h4>
+                                </div>
+                            </div>
+
+                            <div class="relative pt-6 flex flex-col items-center text-center tree-branch">
+                                <div class="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 p-3 rounded-xl shadow-md w-full max-w-[160px] z-10 text-slate-800 dark:text-slate-300 transition-colors h-full flex flex-col justify-center">
+                                    <div class="flex justify-center mb-1 text-blue-400"><i data-lucide="cpu" class="w-4 h-4"></i></div>
+                                    <span class="text-[9px] font-bold text-slate-500 block">قائد الدعم الفني والتقني</span>
+                                    <h4 class="text-[11px] font-black mt-1">عبدالله علي حزام</h4>
+                                </div>
+                            </div>
+
+                            <div class="relative pt-6 flex flex-col items-center text-center tree-branch">
+                                <div class="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 p-3 rounded-xl shadow-md w-full max-w-[160px] z-10 text-slate-800 dark:text-slate-300 transition-colors h-full flex flex-col justify-center">
+                                    <div class="flex justify-center mb-1 text-pink-400"><i data-lucide="activity" class="w-4 h-4"></i></div>
+                                    <span class="text-[9px] font-bold text-slate-500 block">قائد البرامج</span>
+                                    <h4 class="text-[11px] font-black mt-1">عبدالهادي الشهري</h4>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="schedule" class="min-h-[70vh] flex items-center bg-white dark:bg-slate-950 py-20 border-b border-slate-200 dark:border-slate-900 transition-colors duration-300">
+        <div class="container mx-auto px-6 max-w-5xl">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="text-indigo-600 dark:text-amber-400"><i data-lucide="clover" class="w-8 h-8"></i></div>
+                <h3 class="text-3xl font-black text-slate-900 dark:text-amber-400">البرنامج العملي اليومي</h3>
+            </div>
+            <div class="overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                <table class="w-full text-sm text-right">
+                    <thead class="text-xs bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 text-indigo-950 dark:text-amber-400">
+                        <tr>
+                            <th class="px-5 py-4 font-black">م</th>
+                            <th class="px-5 py-4 font-black">النشاط الميداني المعتمد</th>
+                            <th class="px-5 py-4 font-black">الوقت المجدول</th>
+                            <th class="px-5 py-4 font-black">الجهة المسؤولة عن التنفيذ</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body" class="divide-y divide-slate-200 dark:divide-slate-800 bg-white dark:bg-slate-900/50 text-xs font-semibold text-slate-800 dark:text-slate-300">
+                        <tr class="hover:bg-slate-100 dark:hover:bg-slate-800/30 transition-colors">
+                            <td class="px-5 py-4 font-bold text-indigo-950 dark:text-white">1</td>
+                            <td class="px-5 py-4 font-bold">استقبال فرق الجوالة والتسجيل والتسكين بالمعسكر</td>
+                            <td class="px-5 py-4">عند وصول فرق الجوالة المعتمدة</td>
+                            <td class="px-5 py-4 text-teal-600 dark:text-teal-400">قائد الساحة والدعم والمساندة</td>
+                        </tr>
+                        <tr class="hover:bg-slate-100 dark:hover:bg-slate-800/30 transition-colors">
+                            <td class="px-5 py-4 font-bold text-indigo-950 dark:text-white">2</td>
+                            <td class="px-5 py-4 font-bold">الاجتماع التعريفي والتنسيقي بقادة فرق الجوالة</td>
+                            <td class="px-5 py-4">مباشرة بعد انتهاء مرحلة التسكين والراحة</td>
+                            <td class="px-5 py-4 text-indigo-600 dark:text-indigo-400">قائد المعسكر المعتمد</td>
+                        </tr>
+                        <tr class="hover:bg-slate-100 dark:hover:bg-slate-800/30 transition-colors">
+                            <td class="px-5 py-4 font-bold text-indigo-950 dark:text-white">3</td>
+                            <td class="px-5 py-4 font-bold">تنفيذ البرامج والأنشطة اليومية والمسابقات لفرق الجوالة</td>
+                            <td class="px-5 py-4">خلال الفترة الصباحية والمسائية المحددة</td>
+                            <td class="px-5 py-4 text-pink-600 dark:text-pink-400">قائد البرامج الكشفية</td>
+                        </tr>
+                        <tr class="hover:bg-slate-100 dark:hover:bg-slate-800/30 transition-colors">
+                            <td class="px-5 py-4 font-bold text-indigo-950 dark:text-white">4</td>
+                            <td class="px-5 py-4 font-bold">أعمال الإرشاد والمساندة وخدمة ضيوف الرحمن بالميدان</td>
+                            <td class="px-5 py-4">طوال اليوم وعلى فترات مناوبة مجدولة</td>
+                            <td class="px-5 py-4 text-slate-700 dark:text-slate-400">جميع فرق الجوالة (بإشراف كامل من القيادة)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section id="excellence" class="min-h-screen flex items-center bg-slate-50 dark:bg-slate-900 py-20 border-b border-slate-200 dark:border-slate-900 transition-colors duration-300">
+        <div class="container mx-auto px-6 max-w-5xl">
+            <div class="flex items-center gap-3 mb-2">
+                <div class="text-indigo-600 dark:text-amber-400"><i data-lucide="trophy" class="w-8 h-8"></i></div>
+                <h3 class="text-3xl font-black text-slate-900 dark:text-amber-400">البرامج التدريبية ومحاور التميز</h3>
+            </div>
+            <p class="text-sm font-bold text-slate-500 dark:text-slate-400 mb-10 mr-11 transition-colors">عرض الصور الفنية للبطاقات والأنشطة الميدانية المعتمدة بالمعسكر:</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                <div class="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm text-slate-800 dark:text-slate-300 group hover:border-indigo-500/50 transition-all duration-300 transition-colors">
+                    <div class="w-full h-56 md:h-64 bg-slate-100 dark:bg-slate-900 overflow-hidden relative">
+                        <img src="assets/first-aid.jpg" alt="دورة الإسعافات الأولية" class="w-full h-full object-cover group-hover:scale-102 transition-transform duration-500 onerror-fallback">
+                    </div>
+                    <div class="p-6">
+                        <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-500/10 px-2.5 py-1 rounded-md">دورة تدريبية</span>
+                        <h4 class="text-lg font-bold text-slate-900 dark:text-white mt-3">دورة الإسعافات الأولية الميدانية</h4>
+                        <p class="text-xs font-medium text-slate-600 dark:text-slate-400 mt-2 leading-relaxed transition-colors">الهدف: تزويد الجوالة بالمهارات الأساسية في التعامل مع الحالات الطارئة.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm text-slate-800 dark:text-slate-300 group hover:border-indigo-500/50 transition-all duration-300 transition-colors">
+                    <div class="w-full h-56 md:h-64 bg-slate-100 dark:bg-slate-900 overflow-hidden relative">
+                        <img src="assets/scout-map.jpg" alt="برنامج المسح والإرشاد" class="w-full h-full object-cover group-hover:scale-102 transition-transform duration-500 onerror-fallback">
+                    </div>
+                    <div class="p-6">
+                        <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-500/10 px-2.5 py-1 rounded-md">برنامج ميداني</span>
+                        <h4 class="text-lg font-bold text-slate-900 dark:text-white mt-3">برنامج المسح والإرشاد المباشر</h4>
+                        <p class="text-xs font-medium text-slate-600 dark:text-slate-400 mt-2 leading-relaxed transition-colors">الهدف: تأهيل الجوالة لأعمال المسح والإرشاد وتوجيه ضيوف الرحمن بالمشاعر.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm mt-6">
+                <div class="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-850 p-6 rounded-2xl shadow-md text-slate-800 dark:text-slate-300 transition-colors">
+                    <h4 class="text-md font-black text-indigo-950 dark:text-amber-400 mb-4 flex items-center gap-2"><i data-lucide="user-check" class="w-5 h-5"></i> أولاً: تكريم أفضل قائد جوالة</h4>
+                    <ul class="space-y-3 font-semibold text-xs text-slate-700 dark:text-slate-300">
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-400"></i> تكريم القائد المتميز في القيادة والإدارة الكشفية.</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-400"></i> تكريم القائد المتميز في العطاء والمبادرة الميدانية.</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-400"></i> تكريم القائد المتميز في تقديم الدعم والمساندة لفرق الجوالة.</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-400"></i> تكريم القائد المتميز في القدوة الحسنة والسلوك الكشفي المشرّف.</li>
+                    </ul>
+                </div>
+                <div class="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-850 p-6 rounded-2xl shadow-md text-slate-800 dark:text-slate-300 transition-colors">
+                    <h4 class="text-md font-black text-indigo-950 dark:text-amber-400 mb-4 flex items-center gap-2"><i data-lucide="home" class="w-5 h-5"></i> ثانياً: تكريم فرق الجوالة المتميزة</h4>
+                    <ul class="space-y-3 font-semibold text-xs text-slate-700 dark:text-slate-300">
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-indigo-600 dark:text-indigo-400"></i> تكريم الفرق المتميزة في تنفيذ وتوثيق البرامج والأنشطة والمسابقات.</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-indigo-600 dark:text-indigo-400"></i> تكريم الفرق المتميزة في الانضباط العام الصارم والتعاون المشترك.</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-indigo-600 dark:text-indigo-400"></i> تكريم الفرق المتميزة في جودة الخدمات المجتمعية لضيوف الرحمن.</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-indigo-600 dark:text-indigo-400"></i> تكريم الفرق المتميزة في الإبداع والابتكار والتقارير اليومية المنجزة.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="prayers" class="min-h-screen flex items-center bg-white dark:bg-slate-950 py-20 border-b border-slate-200 dark:border-slate-900 transition-colors duration-300">
+        <div class="container mx-auto px-6 max-w-5xl">
+            <div class="flex items-center gap-3 mb-2">
+                <div class="text-indigo-600 dark:text-amber-400"><i data-lucide="moon" class="w-8 h-8"></i></div>
+                <h3 class="text-3xl font-black text-slate-900 dark:text-amber-400">مواقيت الصلاة بالمعسكر</h3>
+            </div>
+            <p class="text-sm font-bold text-slate-500 dark:text-slate-400 mb-6 mr-11 transition-colors">تقويم أم القرى الرسمي للعاصمة المقدسة مكة المكرمة لكامل فترة أعمال المعسكر لعام ١٤٤٧هـ</p>
+            
+            <div class="overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-800 shadow-md">
+                <table class="w-full text-center text-xs font-semibold">
+                    <thead class="text-xs bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 text-indigo-950 dark:text-amber-400">
+                        <tr>
+                            <th class="px-4 py-4 text-right font-black">اليوم / التاريخ الهجري</th>
+                            <th class="px-4 py-4 font-black">الفجر</th>
+                            <th class="px-4 py-4 font-black">الظهر</th>
+                            <th class="px-4 py-4 font-black">العصر</th>
+                            <th class="px-4 py-4 font-black">المغرب</th>
+                            <th class="px-4 py-4 font-black">العشاء</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-prayers" class="divide-y divide-slate-200 dark:divide-slate-800 bg-white dark:bg-slate-900/20 text-slate-900 dark:text-slate-200 font-extrabold">
+                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+                            <td class="px-4 py-4 text-right font-black text-indigo-950 dark:text-white bg-slate-50/50 dark:bg-slate-900/20">الخميس (1 ذو الحجة)</td>
+                            <td class="px-4 py-4">4:05 ص</td>
+                            <td class="px-4 py-4">12:11 م</td>
+                            <td class="px-4 py-4">3:26 م</td>
+                            <td class="px-4 py-4">6:52 م</td>
+                            <td class="px-4 py-4">8:22 م</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+                            <td class="px-4 py-4 text-right font-black text-indigo-950 dark:text-white bg-slate-50/50 dark:bg-slate-900/20">الجمعة (2 ذو الحجة)</td>
+                            <td class="px-4 py-4">4:05 ص</td>
+                            <td class="px-4 py-4">12:11 م</td>
+                            <td class="px-4 py-4">3:26 م</td>
+                            <td class="px-4 py-4">6:52 م</td>
+                            <td class="px-4 py-4">8:22 م</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+                            <td class="px-4 py-4 text-right font-black text-indigo-950 dark:text-white bg-slate-50/50 dark:bg-slate-900/20">السبت (3 ذو الحجة)</td>
+                            <td class="px-4 py-4">4:06 ص</td>
+                            <td class="px-4 py-4">12:12 م</td>
+                            <td class="px-4 py-4">3:26 م</td>
+                            <td class="px-4 py-4">6:53 م</td>
+                            <td class="px-4 py-4">8:22 م</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+                            <td class="px-4 py-4 text-right font-black text-indigo-950 dark:text-white bg-slate-50/50 dark:bg-slate-900/20">الأحد (4 ذو الحجة)</td>
+                            <td class="px-4 py-4">4:06 ص</td>
+                            <td class="px-4 py-4">12:12 م</td>
+                            <td class="px-4 py-4">3:26 م</td>
+                            <td class="px-4 py-4">6:53 م</td>
+                            <td class="px-4 py-4">8:23 م</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+                            <td class="px-4 py-4 text-right font-black text-indigo-950 dark:text-white bg-slate-50/50 dark:bg-slate-900/20">الإثنين (5 ذو الحجة)</td>
+                            <td class="px-4 py-4">4:07 ص</td>
+                            <td class="px-4 py-4">12:12 م</td>
+                            <td class="px-4 py-4">3:26 م</td>
+                            <td class="px-4 py-4">6:53 م</td>
+                            <td class="px-4 py-4">8:23 م</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+                            <td class="px-4 py-4 text-right font-black text-indigo-950 dark:text-white bg-slate-50/50 dark:bg-slate-900/20">الثلاثاء (6 ذو الحجة)</td>
+                            <td class="px-4 py-4">4:07 ص</td>
+                            <td class="px-4 py-4">12:13 م</td>
+                            <td class="px-4 py-4">3:27 م</td>
+                            <td class="px-4 py-4">6:53 م</td>
+                            <td class="px-4 py-4">8:23 م</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+                            <td class="px-4 py-4 text-right font-black text-indigo-950 dark:text-white bg-slate-50/50 dark:bg-slate-900/20">الأربعاء (7 ذو الحجة)</td>
+                            <td class="px-4 py-4">4:08 ص</td>
+                            <td class="px-4 py-4">12:13 م</td>
+                            <td class="px-4 py-4">3:27 م</td>
+                            <td class="px-4 py-4">6:54 م</td>
+                            <td class="px-4 py-4">8:23 م</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+                            <td class="px-4 py-4 text-right font-black text-indigo-950 dark:text-white bg-slate-50/50 dark:bg-slate-900/20">الخميس (8 ذو الحجة)</td>
+                            <td class="px-4 py-4">4:09 ص</td>
+                            <td class="px-4 py-4">12:13 م</td>
+                            <td class="px-4 py-4">3:27 م</td>
+                            <td class="px-4 py-4">6:54 م</td>
+                            <td class="px-4 py-4">8:24 م</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors text-amber-600 dark:text-amber-400 font-bold bg-amber-500/5">
+                            <td class="px-4 py-4 text-right font-black bg-slate-100 dark:bg-slate-900/40">الجمعة (9 ذو الحجة - عرفة)</td>
+                            <td class="px-4 py-4">4:09 ص</td>
+                            <td class="px-4 py-4">12:14 م</td>
+                            <td class="px-4 py-4">3:27 م</td>
+                            <td class="px-4 py-4">6:54 م</td>
+                            <td class="px-4 py-4">8:24 م</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+                            <td class="px-4 py-4 text-right font-black text-indigo-950 dark:text-white bg-slate-50/50 dark:bg-slate-900/20">السبت (10 ذو الحجة - العيد)</td>
+                            <td class="px-4 py-4">4:10 ص</td>
+                            <td class="px-4 py-4">12:14 م</td>
+                            <td class="px-4 py-4">3:27 م</td>
+                            <td class="px-4 py-4">6:54 م</td>
+                            <td class="px-4 py-4">8:24 م</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section id="logistics" class="min-h-[70vh] flex items-center bg-slate-50 dark:bg-slate-900 py-20 border-b border-slate-200 dark:border-slate-900 transition-colors duration-300">
+        <div class="container mx-auto px-6 max-w-5xl">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="text-indigo-600 dark:text-amber-400"><i data-lucide="package" class="w-8 h-8"></i></div>
+                <h3 class="text-3xl font-black text-slate-900 dark:text-amber-400">الخدمات اللوجستية والتموين</h3>
+            </div>
+            <div class="space-y-6 text-sm font-medium">
+                <div class="card-block bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 rounded-2xl shadow-md text-slate-800 dark:text-slate-100 transition-colors">
+                    <h4 class="text-base font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-2"><i data-lucide="door-open" class="w-5 h-5 text-indigo-600 dark:text-amber-400"></i>  الاستقبال والتسكين الميداني للوفود</h4>
+                    <p class="leading-relaxed font-semibold text-slate-700 dark:text-slate-300 transition-colors">الترحيب بكافة عشائر الجوالة والفرق الكشفية فور الوصول، إتمام التحقق وتوثيق سجلات المشاركين وبياناتهم الإلكترونية كاملة. ويتم التسكين مع مراعاة الطاقة الاستيعابية لكل غرفة لضمان الجاهزية والراحة الفعالة للمرافق التابعة للمعسكر.</p>
+                </div>
+                <div class="card-block bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 rounded-2xl shadow-md text-slate-800 dark:text-slate-100 transition-colors">
+                    <h4 class="text-base font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2"><i data-lucide="cookie" class="w-5 h-5 text-indigo-600 dark:text-amber-400"></i> مواعيد وجبات التغذية والتموين بالخطة</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-bold text-center text-slate-800 dark:text-slate-200">
+                        <div class="meal-block bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 p-4 font-black shadow-inner">🍳 الإفطار الصباحي (08:30 ص - 10:30 ص)</div>
+                        <div class="meal-block bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 p-4 font-black shadow-inner">🍲 الغداء الرئيسي (12:30 م - 02:30 م)</div>
+                        <div class="meal-block bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 p-4 font-black shadow-inner">🥩 العشاء الخفيف (09:00 م - 11:00 م)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="safety" class="min-h-[70vh] flex items-center bg-white dark:bg-slate-950 py-20 border-b border-slate-200 dark:border-slate-900 transition-colors duration-300">
+        <div class="container mx-auto px-6 max-w-5xl">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="text-indigo-600 dark:text-amber-400"><i data-lucide="shield-alert" class="w-8 h-8"></i></div>
+                <h3 class="text-3xl font-black text-slate-900 dark:text-amber-400">بروتوكولات السلامة العامة والإخلاء</h3>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+                <div class="lg:col-span-2 card-block bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl p-6 text-xs font-medium leading-relaxed text-slate-800 dark:text-slate-100 flex flex-col justify-between transition-colors">
+                    <div>
+                        <h4 class="text-base font-bold text-red-600 dark:text-red-400 mb-3 flex items-center gap-2">
+                            <i data-lucide="alert-triangle" class="w-5 h-5"></i> خطة الإخلاء العاجل والطارئ في حالات الأزمات
+                        </h4>
+                        
+                        <p class="leading-relaxed mb-4 text-sm font-bold text-slate-800 dark:text-slate-200">
+                            ⚠️ <strong>أهداف الخطة العامة للسلامة:</strong> تهدف هذه الخطة إلى حماية الأرواح والمنتسبين والممتلكات الكشفية، وتقليل المخاطر والإصابات الميدانية، وتحديد إجراءات واضحة وسريعة لرفع جاهزية الاستجابة القصوى للطوارئ داخل المقر.
+                        </p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                            <div class="p-4 bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 shadow-inner transition-colors">
+                                <h5 class="text-indigo-950 dark:text-amber-400 font-bold mb-2 text-sm flex items-center gap-1.5"><i data-lucide="info" class="w-4 h-4"></i> حالات الطوارئ والإخلاء المعتمدة</h5>
+                                <ul class="space-y-1.5 text-xs text-slate-700 dark:text-slate-300 list-disc list-inside">
+                                    <li>الحريق أو تصاعد أدخنة الحريق بالمبنى.</li>
+                                    <li>الزلازل أو الانهيارات والتشققات الإنشائية المفاجئة.</li>
+                                    <li>التسربات الغازية أو التسربات الكيميائية الطارئة.</li>
+                                    <li>الأحوال الجوية الشديدة كالسيول والرياح والعواصف.</li>
+                                    <li>أي تهديد مباشر يستهدف أمن وسلامة أفراد المعسكر.</li>
+                                </ul>
+                            </div>
+
+                            <div class="p-4 bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 shadow-inner transition-colors">
+                                <h5 class="text-indigo-950 dark:text-amber-400 font-bold mb-2 text-sm flex items-center gap-1.5"><i data-lucide="user" class="w-4 h-4"></i> توزيع أدوار ومسؤوليات القيادة في الطوارئ</h5>
+                                <ul class="space-y-1.5 text-xs text-slate-700 dark:text-slate-300 list-inside list-disc">
+                                    <li><strong>قائد المعسكر:</strong> يتولى القرار العام واعتماد وبدء خطة الطوارئ.</li>
+                                    <li><strong>المشرفون وقادة الفرق:</strong> توجيه فرق الإخلاء للتأكد من خلو الغرف بالكامل.</li>
+                                    <li><strong>فريق الدعم والمساندة:</strong> التنسيق المباشر والربط مع الجهات المختصة.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 p-4 bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 shadow-inner transition-colors">
+                            <h5 class="text-indigo-950 dark:text-amber-400 font-bold mb-2 text-sm flex items-center gap-1.5"><i data-lucide="phone" class="w-4 h-4"></i> قنوات ووسائل التواصل المعتمدة بغرفة العمليات</h5>
+                            <p class="text-xs text-slate-700 dark:text-slate-300">تتم إدارة الأزمة عبر الربط اللاسلكي المباشر بين: جوال قائد المعسكر ومساعديه، أجهزة اللاسلكي الميدانية الموزعة على لجان الدعم، والتواصل الفوري مع غرفة العمليات المركزية الموحدة للمعسكر.</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4 font-bold bg-slate-100 dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-700 text-xs text-slate-800 dark:text-slate-200 transition-colors">
+                        <div class="flex items-center gap-2"><i data-lucide="navigation" class="w-4 h-4 text-red-500 dark:text-red-400"></i> <span><strong class="text-red-600 dark:text-red-400">نقطة التجمع الرئيسية:</strong> الساحة الخارجية للمعسكر والمدرسة.</span></div>
+                        <div class="flex items-center gap-2"><i data-lucide="navigation" class="w-4 h-4 text-red-500 dark:text-red-400"></i> <span><strong class="text-red-600 dark:text-red-400">نقطة التجمع الاحتياطية:</strong> المنطقة الآمنة المخصصة خلف مبنى المدرسة.</span></div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900 border border-slate-700 p-6 rounded-2xl shadow-xl flex flex-col justify-between">
+                    <div class="flex items-center justify-between border-b border-slate-700/50 pb-4 mb-4">
+                        <div class="text-right">
+                            <h4 class="text-base font-black tracking-wide text-white">أرقام الطوارئ المهمة</h4>
+                            <span class="text-[10px] text-amber-400 font-bold block mt-0.5">أرقام اتصال الحالات الحرجة المهمة</span>
+                        </div>
+                        <div class="p-2.5 bg-slate-800 rounded-xl border border-slate-700 text-amber-400">
+                            <i data-lucide="phone-call" class="w-5 h-5"></i>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3.5 flex-1 flex flex-col justify-center">
+                        <div class="bg-slate-800 border border-slate-700 p-3 rounded-xl flex items-center justify-between hover:bg-slate-700 transition-colors">
+                            <a href="tel:998" class="bg-[#ea2b2b] hover:bg-red-700 text-white font-black px-4 py-1.5 rounded-lg text-sm transition-all shadow-md active:scale-95">998</a>
+                            <span class="text-xs font-black tracking-wide text-slate-200">الدفاع المدني</span>
+                        </div>
+
+                        <div class="bg-slate-800 border border-slate-700 p-3 rounded-xl flex items-center justify-between hover:bg-slate-700 transition-colors">
+                            <a href="tel:997" class="bg-[#ea2b2b] hover:bg-red-700 text-white font-black px-4 py-1.5 rounded-lg text-sm transition-all shadow-md active:scale-95">997</a>
+                            <span class="text-xs font-black tracking-wide text-slate-200">الهلال الأحمر الإسعافي</span>
+                        </div>
+
+                        <div class="bg-slate-800 border border-slate-700 p-3 rounded-xl flex items-center justify-between hover:bg-slate-700 transition-colors">
+                            <a href="tel:999" class="bg-[#2b59ea] hover:bg-blue-700 text-white font-black px-4 py-1.5 rounded-lg text-sm transition-all shadow-md active:scale-95">999</a>
+                            <span class="text-xs font-black tracking-wide text-slate-200">الشرطة</span>
+                        </div>
+
+                        <div class="bg-slate-800 border border-slate-700 p-3 rounded-xl flex items-center justify-between hover:bg-slate-700 transition-colors">
+                            <a href="tel:911" class="bg-[#ea662b] hover:bg-orange-600 text-white font-black px-4 py-1.5 rounded-lg text-sm transition-all shadow-md active:scale-95">911</a>
+                            <span class="text-xs font-black tracking-wide text-slate-200">الطوارئ الطبية</span>
+                        </div>
+
+                        <div class="bg-slate-800 border border-slate-700 p-3 rounded-xl flex items-center justify-between hover:bg-slate-700 transition-colors">
+                            <a href="tel:920000814" class="bg-[#0d7d52] hover:bg-emerald-700 text-white font-black px-3 py-1.5 rounded-lg text-[11px] transition-all shadow-md active:scale-95 tracking-tight">920000814</a>
+                            <span class="text-xs font-black tracking-wide text-slate-200">مركز الحج</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="footer-theme" class="bg-slate-950 text-slate-400 py-12 border-t border-slate-800 text-xs font-medium transition-colors duration-300">
+        <div class="container mx-auto px-6 max-w-5xl">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-right pb-8 border-b border-slate-800">
+                <div>
+                    <h5 class="text-sm font-black text-white mb-2 flex items-center justify-center md:justify-start gap-1.5"><i data-lucide="terminal" class="w-4 h-4 text-amber-400"></i> النظام الإلكتروني الموحد</h5>
+                    <p class="text-slate-400 leading-relaxed">تم التطوير والبرمجة بالكامل بواسطة عشائر جوالة جامعة جازان لخدمة المعسكرات والكشافة.</p>
+                </div>
+                <div class="flex flex-col justify-center items-center">
+                    <h5 class="text-sm font-black text-amber-400 mb-2 flex items-center gap-1.5"><i data-lucide="phone-call" class="w-4 h-4"></i> قنوات التواصل الرسمية</h5>
+                    <p>البريد الكشفي: <a href="mailto:scouts@scouts.org.sa" class="text-white hover:underline">scouts@scouts.org.sa</a></p>
+                    <p class="mt-1">الهاتف الرسمي للجمعية: +966 11 441 1253</p>
+                </div>
+                <div class="flex flex-col justify-center items-center md:items-end">
+                    <h5 class="text-sm font-black text-white mb-2 flex items-center gap-1.5"><i data-lucide="external-link" class="w-4 h-4"></i> المرجعية الرسمية</h5>
+                    <a href="https://www.scouts.org.sa" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-slate-950 font-black rounded-lg transition-transform cursor-pointer">زيارة موقع جمعية الكشافة</a>
+                </div>
+            </div>
+            <div class="pt-6 text-center text-[11px] text-slate-400 font-bold">
+                <p>© ١٤٤٧هـ | جميع الحقوق محفوظة ومسجلة لعشائر جوالة جامعة جازان | برمجة وتصميم الجوال: حسام بن ياسين قاسم</p>
+            </div>
+        </div>
+    </footer>
+
     <script>
-        function toggleTheme() {
-            document.documentElement.classList.toggle('dark');
+        function updateIcon() {
+            const themeIcon = document.getElementById('theme-icon');
+            if (document.documentElement.classList.contains('dark')) {
+                themeIcon.setAttribute('data-lucide', 'sun');
+            } else {
+                themeIcon.setAttribute('data-lucide', 'moon');
+            }
             lucide.createIcons();
         }
-        lucide.createIcons();
+
+        updateIcon();
+
+        function toggleTheme() {
+            const htmlElement = document.documentElement;
+            
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+            updateIcon();
+        }
+
+        document.querySelectorAll('.onerror-fallback').forEach(img => {
+            img.onerror = function() {
+                this.style.display = 'none';
+                const parent = this.parentElement;
+                if(parent && !parent.querySelector('.fallback-msg')) {
+                    const fallbackDiv = document.createElement('div');
+                    fallbackDiv.className = 'fallback-msg w-full h-full min-h-[120px] bg-slate-100 dark:bg-slate-900 border border-dashed border-slate-300 dark:border-slate-800 rounded-xl flex flex-col items-center justify-center p-4 text-center text-xs text-amber-500 font-bold';
+                    fallbackDiv.innerHTML = '<i data-lucide="image-off" class="w-6 h-6 text-slate-500 mb-2"></i><span>الملف "' + this.getAttribute('src').split('/').pop() + '" غير موجود</span><span class="text-[10px] text-slate-400 font-medium mt-1">يرجى نقله داخل مجلد assets</span>';
+                    parent.appendChild(fallbackDiv);
+                    lucide.createIcons();
+                }
+            };
+        });
     </script>
 </body>
 </html>
